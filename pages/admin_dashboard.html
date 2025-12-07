@@ -1,0 +1,230 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard - Administrador</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../css/global_styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <div class="header-content">
+            <div class="logo-VTDM"></div>
+            <div class="empresa-sistema">
+                <div class="nombre-sistema">Sistema de Control de Oficinas</div>
+                <div class="developer-VTDM">VorTics Development</div>
+            </div>
+            <div class="logo-Ing"></div>
+            <div class="nombres-uni">
+                <div class="nombre-facultad">Facultad de Ingeniería</div>
+                <div class="nombre-universidad">Universidad Autónoma de San Luis Potosí</div>
+            </div>
+            
+            <div class="rol-login dashboard-rol">
+                <div class="user-welcome">
+                    Bienvenido, <strong>Administrador</strong>
+                </div>
+                <div class="user-actions">
+                    <div class="rol admin">Administrador</div>
+                    <a href="../index.html" class="logout-button">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Préstamos Activos</h3>
+                    <span class="stat-number">12</span>
+                    <span class="stat-desc">Artículos prestados actualmente</span>
+                </div>
+                <span class="material-icons stat-icon">description</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Préstamos Vencidos</h3>
+                    <span class="stat-number urgent">3</span>
+                    <span class="stat-desc">Requieren atención inmediata</span>
+                </div>
+                <span class="material-icons stat-icon urgent">warning</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Total de Artículos</h3>
+                    <span class="stat-number available">45</span>
+                    <span class="stat-desc">En el inventario</span>
+                </div>
+                <span class="material-icons stat-icon">inventory_2</span>
+            </div>
+        </div>
+
+        <div class="dashboard-nav">
+            <button class="dash-nav-button activo" data-page="prestamos">Gestión de Préstamos</button>
+            <button class="dash-nav-button" data-page="inventario">Inventario</button>
+            <button class="dash-nav-button" data-page="reportes">Reportes</button>
+            <button class="dash-nav-button" data-page="admin">Administración</button>
+        </div>
+
+        <div class="dashboard-content-area">
+
+            <div class="dash-page" id="page-prestamos">
+                
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Acciones Rápidas</h2>
+                    <a href="register_loan.html" class="action-btn green">Registrar Nuevo Préstamo</a>
+                    <a href="process_return.html" class="action-btn dark">Procesar Devolución</a>
+                    <a href="overdue_loans.html" class="action-btn red">Ver Préstamos Vencidos</a>
+                    <a href="loan_history.html" class="action-btn outline">Consultar Historial</a>
+                </div>
+
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Préstamos Recientes</h2>
+                    <div class="recent-item">
+                        <div class="item-details">
+                            <span class="item-name">Calculadora Científica</span>
+                            <span class="item-user">Juan Pérez - 12345678</span>
+                        </div>
+                        <span class="recent-status active">Activo</span>
+                    </div>
+                    <div class="recent-item">
+                        <div class="item-details">
+                            <span class="item-name">Laptop HP</span>
+                            <span class="item-user">María García - 87654321</span>
+                        </div>
+                        <span class="recent-status overdue">Vencido</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dash-page hidden" id="page-inventario">
+                
+                <div class="dash-card full-width">
+                    <h2 class="dash-card-title">Acciones de Inventario</h2>
+                    <a href="manage_inventory.html" class="action-btn blue">Gestionar Inventario</a>
+                    <p class="card-desc">Ir a la página de administración para agregar, editar o eliminar artículos.</p>
+                </div>
+
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Inventario de Consejería (CEFI)</h2>
+                    
+                    <div class="inventory-list dash-inventory-list">
+                        <div class="inventory-row-header">
+                            <div class="col-articulo">Artículo</div>
+                            <div class="col-total">Total</div>
+                            <div class="col-disponible">Disp.</div>
+                            <div class="col-estado">Estado</div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Calculadora</div>
+                            <div class="col-total">15</div>
+                            <div class="col-disponible count-available">8</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Laptop HP</div>
+                            <div class="col-total">8</div>
+                            <div class="col-disponible count-available">1</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Micrófono</div>
+                            <div class="col-total">10</div>
+                            <div class="col-disponible count-available">1</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Inventario de FUP</h2>
+                    
+                    <div class="inventory-list dash-inventory-list">
+                        <div class="inventory-row-header">
+                            <div class="col-articulo">Artículo</div>
+                            <div class="col-total">Total</div>
+                            <div class="col-disponible">Disp.</div>
+                            <div class="col-estado">Estado</div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Bata Lab.</div>
+                            <div class="col-total">25</div>
+                            <div class="col-disponible count-available">20</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Botas Seg.</div>
+                            <div class="col-total">10</div>
+                            <div class="col-disponible count-available">3</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Bocina</div>
+                            <div class="col-total">5</div>
+                            <div class="col-disponible">0</div>
+                            <div class="col-estado">
+                                <span class="status-badge unavailable">Agotado</span>
+                            </div>
+                        </div>
+                        <div class="inventory-item">
+                            <div class="col-articulo">Proyector</div>
+                            <div class="col-total">8</div>
+                            <div class="col-disponible count-available">2</div>
+                            <div class="col-estado">
+                                <span class="status-badge available">Disp.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dash-page hidden" id="page-reportes">
+                <div class="dash-card full-width">
+                    <h2 class="dash-card-title">Reportes y Estadísticas</h2>
+                    <a href="reports.html" class="action-btn blue">Generar Reportes Detallados</a>
+                    <div class="button-row">
+                        <button class="action-btn outline" id="quick-report-weekly">Reporte Rápido Semanal</button>
+                        <button class="action-btn outline" id="quick-report-monthly">Reporte Rápido Mensual</button>
+                    </div>
+                    <p class="card-desc">Como administrador, puedes generar reportes completos en PDF desde la página de reportes.</p>
+                </div>
+            </div>
+
+            <div class="dash-page hidden" id="page-admin">
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Gestión de Inventario</h2>
+                    <a href="manage_inventory.html" class="action-btn blue">Administrar Artículos</a>
+                    <p class="card-desc">Agregar, editar y eliminar artículos del inventario.</p>
+                </div>
+                <div class="dash-card">
+                    <h2 class="dash-card-title">Gestión de Usuarios</h2>
+                    <a href="manage_users.html" class="action-btn green">Administrar Usuarios</a>
+                    <p class="card-desc">Crear y gestionar cuentas de miembros del equipo.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-copyright">
+                <p>© 2025 VorTics Development (Milton Torres). Todos los derechos reservados.</p>
+            </div>
+        </div>
+
+        <script src="../js/funcionalidad.js" type="text/javascript"></script>
+    </body>
+</html>

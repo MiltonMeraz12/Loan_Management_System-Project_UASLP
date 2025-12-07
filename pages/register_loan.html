@@ -1,0 +1,188 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registrar Préstamo - Administrador</title> 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../css/global_styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="header-content">
+            <div class="logo-VTDM"></div>
+            <div class="empresa-sistema">
+                <div class="nombre-sistema">Sistema de Control de Oficinas</div>
+                <div class="developer-VTDM">VorTics Development</div>
+            </div>
+            <div class="logo-Ing"></div>
+            <div class="nombres-uni">
+                <div class="nombre-facultad">Facultad de Ingeniería</div>
+                <div class="nombre-universidad">Universidad Autónoma de San Luis Potosí</div>
+            </div>
+            <div class="rol-login dashboard-rol">
+                <div class="user-welcome">
+                    Bienvenido, <strong>Administrador</strong>
+                </div>
+                <div class="user-actions">
+                    <div class="rol admin">Administrador</div>
+                    <a href="../index.html" class="logout-button">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="register-loan-container">
+            <div class="loan-form-card">
+                <h2 class="form-title">Información del Préstamo</h2>
+                
+                <form id="register-loan-form">
+                    
+                    <div class="form-group">
+                        <label for="loan-category">Categoría</label>
+                        <select id="loan-category" name="category" required>
+                            <option value="consejeria" selected>Consejería</option>
+                            <option value="fup">FUP</option>
+                        </select>
+                    </div>
+
+                    <hr class="form-divider"> 
+                    <h4>Información de Identificación</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id-type">Tipo de Identificación</label>
+                            <select id="id-type" name="idType" required>
+                                <option value="universidad" selected>Credencial Universitaria</option>
+                                <option value="ine">INE</option>
+                                <option value="otra">Otra Identificación Oficial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-key">Clave del Estudiante (Dueño de ID)</label>
+                            <input type="text" id="student-key" name="studentKey" placeholder="123456" maxlength="6" required pattern="\d{6}"> 
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-name">Nombre del Estudiante (Dueño de ID)</label>
+                            <input type="text" id="student-name" name="studentName" placeholder="Juan Pérez García" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-phone">Número de Teléfono (Dueño de ID)</label>
+                            <input type="tel" id="student-phone" name="studentPhone" placeholder="4441234567" required pattern="\d{10}" maxlength="10"> 
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="proxy-requester-checkbox" name="isProxy">
+                        <label for="proxy-requester-checkbox">Préstamo solicitado por otra persona</label>
+                    </div>
+
+                    <div class="proxy-requester-details hidden" id="proxy-details-section">
+                        <hr class="form-divider">
+                        <h4>Información del Solicitante (Quien pide el préstamo)</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="proxy-name">Nombre del Solicitante</label>
+                                <input type="text" id="proxy-name" name="proxyName" placeholder="Maria López">
+                            </div>
+                            <div class="form-group">
+                                <label for="proxy-phone">Teléfono del Solicitante</label>
+                                <input type="tel" id="proxy-phone" name="proxyPhone" placeholder="4449876543" pattern="\d{10}" maxlength="10">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="form-divider"> 
+                    <h4>Detalles del Préstamo</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="loan-item">Artículo a Prestar</label>
+                            <select id="loan-item" name="itemId" required>
+                                <option value="" disabled selected>Selecciona un artículo</option>
+                                <option value="1">Calculadora Científica (Cantidad: 8)</option> 
+                                <option value="2">Laptop HP (Cantidad: 1)</option> 
+                                <option value="3">Micrófono Inalámbrico (Cantidad: 1)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="authorized-by">Registrado por:</label> 
+                            <input type="text" id="authorized-by" name="authorizedBy" 
+                                value="Administrador" disabled> 
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="loan-comments">Comentarios (Opcional)</label>
+                        <textarea id="loan-comments" name="comments" rows="3" placeholder="Comentarios adicionales sobre el préstamo..."></textarea>
+                    </div>
+
+                    <button type="submit" class="action-btn green submit-loan-btn">
+                        Registrar Préstamo
+                    </button>
+
+                </form>
+                </div>
+
+            <div class="available-items-card">
+                <div class="available-header">
+                    <h2 class="items-title" id="available-items-title">Artículos Disponibles - Consejería</h2>
+                    <span class="item-count-badge" id="item-count">3 artículos</span>
+                </div>
+                <div class="available-items-list" id="items-list-consejeria">
+                    <div class="available-item">
+                        <span class="item-name">Calculadora Científica</span>
+                        <span class="item-quantity">Cantidad: 8</span>
+                        <span class="item-availability available">Disponible</span>
+                    </div>
+                    <div class="available-item">
+                        <span class="item-name">Laptop HP</span>
+                        <span class="item-quantity">Cantidad: 1</span>
+                        <span class="item-availability low">Pocos</span> 
+                    </div>
+                    <div class="available-item">
+                        <span class="item-name">Micrófono Inalámbrico</span>
+                        <span class="item-quantity">Cantidad: 1</span>
+                        <span class="item-availability low">Pocos</span> 
+                    </div>
+                </div>
+                <div class="available-items-list hidden" id="items-list-fup">
+                    <div class="available-item">
+                        <span class="item-name">Bata de Laboratorio</span>
+                        <span class="item-quantity">Cantidad: 20</span>
+                        <span class="item-availability available">Disponible</span>
+                    </div>
+                    <div class="available-item">
+                        <span class="item-name">Botas de Seguridad</span>
+                        <span class="item-quantity">Cantidad: 3</span>
+                        <span class="item-availability low">Pocos</span>
+                    </div>
+                    <div class="available-item">
+                        <span class="item-name">Equipo de Sonido (Bocina)</span>
+                        <span class="item-quantity">Cantidad: 0</span>
+                        <span class="item-availability unavailable">Agotado</span> 
+                    </div>
+                    <div class="available-item">
+                        <span class="item-name">Proyector Portátil</span>
+                        <span class="item-quantity">Cantidad: 2</span>
+                        <span class="item-availability low">Pocos</span>
+                    </div>
+                </div>
+                <a href="admin_dashboard.html" class="back-to-dash-btn">
+                    &larr; Volver al Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-copyright">
+                <p>© 2025 VorTics Development (Milton Torres). Todos los derechos reservados.</p>
+            </div>
+        </div>
+
+        <script src="../js/funcionalidad.js" type="text/javascript"></script>
+    </body>
+</html>

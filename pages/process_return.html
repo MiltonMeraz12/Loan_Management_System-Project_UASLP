@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Procesar Devolución - Sistema de Control</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../css/global_styles.css" rel="stylesheet" type="text/css"/>
+    </head>
+
+    <body>
+        <div class="header-content">
+            <div class="logo-VTDM"></div>
+            <div class="empresa-sistema">
+                <div class="nombre-sistema">Sistema de Control de Oficinas</div>
+                <div class="developer-VTDM">VorTics Development</div>
+            </div>
+            <div class="logo-Ing"></div>
+            <div class="nombres-uni">
+                <div class="nombre-facultad">Facultad de Ingeniería</div>
+                <div class="nombre-universidad">Universidad Autónoma de San Luis Potosí</div>
+            </div>
+            <div class="rol-login dashboard-rol">
+                <div class="user-welcome">
+                    Bienvenido, <strong>Administrador</strong>
+                </div>
+                <div class="user-actions">
+                    <div class="rol admin">Administrador</div>
+                    <a href="../index.html" class="logout-button">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-banner hidden" id="return-success-banner">
+            <span class="material-icons">check_circle</span>
+            <span id="success-message-text">Préstamo devuelto exitosamente.</span>
+        </div>
+
+        <div class="return-container">
+
+            <div class="active-loans-column">
+                <div class="loan-list-card">
+                    <div class="loan-list-header">
+                        <h2>Préstamos Activos</h2>
+                        <span class="item-count-badge" id="active-loan-count">3 préstamos</span>
+                    </div>
+                    <div class="loan-search">
+                        <input type="text" id="loan-search-input" placeholder="Buscar por clave, nombre o artículo...">
+                        <span class="material-icons search-icon">search</span>
+                    </div>
+                    <div class="loan-list" id="active-loans-list">
+                        <div class="loan-item" 
+                            data-loan-id="L001" 
+                            data-article="Calculadora Científica" 
+                            data-student="Juan Pérez García" 
+                            data-key="123456" 
+                            data-phone="4441234567"
+                            data-id-type="Credencial Universitaria"
+                            data-loan-date="10/19/2025" 
+                            data-due-date="10/20/2025" 
+                            data-registered-by="Maria Lopez"
+                            data-proxy-name="" 
+                            data-proxy-phone="">
+                            <span class="loan-item-title">Calculadora Científica</span>
+                            <span class="loan-item-details">Estudiante: Juan Pérez García (123456)</span>
+                            <span class="loan-item-details">Tel: 4441234567</span>
+                            <span class="loan-item-details">Fecha préstamo: 10/19/2025</span>
+                            <span class="loan-item-details">Fecha límite: 10/20/2025</span>
+                            <span class="loan-item-details">Registrado por: Maria Lopez</span>
+                        </div>
+                        <div class="loan-item overdue" 
+                            data-loan-id="L002" 
+                            data-article="Laptop HP" 
+                            data-student="Ana Martinez" 
+                            data-key="876543" 
+                            data-phone="4449876543"
+                            data-id-type="INE"
+                            data-loan-date="10/18/2025" 
+                            data-due-date="10/19/2025" 
+                            data-registered-by="Carlos Ruiz"
+                            data-proxy-name="" 
+                            data-proxy-phone="">
+                            <span class="loan-item-title">Laptop HP <span class="status-tag overdue">Vencido</span></span>
+                            <span class="loan-item-details">Estudiante: Ana Martinez (876543)</span>
+                            <span class="loan-item-details">Tel: 4449876543</span>
+                            <span class="loan-item-details">Fecha préstamo: 10/18/2025</span>
+                            <span class="loan-item-details">Fecha límite: 10/19/2025</span>
+                            <span class="loan-item-details">Registrado por: Carlos Ruiz</span>
+                        </div>
+                        <div class="loan-item" 
+                            data-loan-id="L003" 
+                            data-article="Proyector Epson" 
+                            data-student="Pedro Sánchez" 
+                            data-key="112233" 
+                            data-phone="4441122334"
+                            data-id-type="Credencial Universitaria"
+                            data-loan-date="10/19/2025" 
+                            data-due-date="10/20/2025" 
+                            data-registered-by="Laura Garcia"
+                            data-proxy-name="Sofia Ramirez" 
+                            data-proxy-phone="4445556677">
+                            <span class="loan-item-title">Proyector Epson</span>
+                            <span class="loan-item-details">Estudiante: Pedro Sánchez (112233)</span>
+                            <span class="loan-item-details">Tel: 4441122334</span>
+                            <span class="loan-item-details">Solicitado por: Sofia Ramirez (Tel: 4445556677)</span>
+                            <span class="loan-item-details">Fecha préstamo: 10/19/2025</span>
+                            <span class="loan-item-details">Fecha límite: 10/20/2025</span>
+                            <span class="loan-item-details">Registrado por: Laura Garcia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="return-details-column">
+                <div class="return-details-card">
+                    <h2>Procesar Devolución</h2>
+                    <div class="placeholder-message" id="return-placeholder">
+                        <span class="material-icons placeholder-icon">receipt_long</span>
+                        <p>Selecciona un préstamo de la lista para procesar su devolución</p>
+                    </div>
+                    <div class="loan-details hidden" id="return-details-section">
+                        <h4>Detalles del Préstamo</h4>
+                        <div class="detail-item"><strong>Artículo:</strong> <span id="detail-article"></span></div>
+                        <div class="detail-item"><strong>Estudiante:</strong> <span id="detail-student"></span></div>
+                        <div class="detail-item"><strong>Clave:</strong> <span id="detail-key"></span></div>
+                        <div class="detail-item"><strong>Teléfono:</strong> <span id="detail-phone"></span></div>
+                        <div class="detail-item"><strong>ID Usada:</strong> <span id="detail-id-type"></span></div>
+                        <div class="detail-item hidden" id="detail-proxy-info">
+                            <strong>Solicitado por:</strong> <span id="detail-proxy-name"></span> 
+                            (Tel: <span id="detail-proxy-phone"></span>)
+                        </div>
+                        <div class="detail-item"><strong>Fecha préstamo:</strong> <span id="detail-loan-date"></span></div>
+                        <div class="detail-item"><strong>Fecha límite:</strong> <span id="detail-due-date"></span></div>
+                        <div class="detail-item"><strong>Registrado por:</strong> <span id="detail-registered-by"></span></div> <div id="overdue-warning" class="hidden"><span class="status-tag overdue">Préstamo Vencido</span></div>
+
+                        <div class="comments-section form-group">
+                            <label for="return-comments">Comentarios (Opcional)</label>
+                            <textarea id="return-comments" name="comments" rows="3" placeholder="Ej: Entregado con ligero desperfecto en esquina..."></textarea>
+                        </div>
+
+                        <button class="action-btn green" id="confirm-return-btn">Confirmar Devolución</button>
+                        <button class="action-btn outline" id="cancel-return-btn">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <div class="quick-stats-card full-width-stats">
+            <h3>Estadísticas Rápidas</h3>
+            <div class="stats-content"> <div class="stat-item"><span>Total activos:</span> <span class="stat-value" id="stat-total-active">3</span></div>
+                <div class="stat-item"><span>Vencidos:</span> <span class="stat-value stat-urgent" id="stat-overdue">1</span></div>
+                <div class="stat-item"><span>Al día:</span> <span class="stat-value stat-ok" id="stat-on-time">2</span></div>
+            </div>
+
+            <a href="admin_dashboard.html" class="back-to-dash-btn">
+                &larr; Volver al Dashboard
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="footer-copyright">
+                <p>© 2025 VorTics Development (Milton Torres). Todos los derechos reservados.</p>
+            </div>
+        </div>
+
+        <script src="../js/funcionalidad.js" type="text/javascript"></script>
+    </body>
+</html>

@@ -1,0 +1,1784 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA PRINCIPAL
+ * =========================================
+*/
+
+body{
+  background-color: #f1f7fc; margin: 0; padding: 0; font-family: 'Roboto';
+  display: flex; flex-direction: column; min-height: 100vh; min-width: 100vh;
+}
+
+.header-content{
+  height: 120px; width: 97%; background-color: #1c398e; display: flex; 
+  gap: 24px; padding: 12px 24px 12px 24px; color: #fff;
+}
+.logo-VTDM{
+  display: inline-block; width: 120px; height: 113px; background-image: url(../multimedia/Logo_VTWS_Luz.jpg);
+  background-size: contain; background-repeat: no-repeat; border-radius: 100%;
+  background-position: center; content: '';
+}
+.empresa-sistema{
+  display: flex; height: 120px; width: 32%; flex-direction: column; border-right: 2px solid #fff;
+}
+.empresa-sistema div{height: 50%;}
+.nombre-sistema, .nombre-facultad{
+  display: flex; justify-content: left; align-items: center; 
+  font-size: 22pt; font-weight: bold;
+}
+.developer-VTDM, .nombre-universidad{
+  display: flex; justify-content: left;
+  font-size: 16pt; font-weight: bold; color: #bedbf8;
+}
+.logo-Ing{
+  display: inline-block; width: 120px; height: 113px; background-image: url(../multimedia/Logo_Inge.jpg);
+  background-size: contain; background-repeat: no-repeat; border-radius: 100%;
+  background-position: center; content: '';
+}
+.nombres-uni{
+  width: 28%; height: 96%; display: flex; flex-direction: column; font-weight: bold;
+}
+.nombre-facultad{display: flex; height: 50%; font-size: 22pt; justify-content: left; align-content: end;}
+.nombre-universidad{display: flex; height: 50%; font-size: 16pt; justify-content: left; align-content: normal;}
+.rol-login{
+  width: 24%; display: flex; justify-content: right; align-items: center; gap: 36px;
+}
+.rol-login .rol, .rol-login .login-button{
+  display: flex; background-color: #fff; justify-content: center; align-items: center;
+  padding: 0 18px 0 18px; color: #1c398e; font-weight: bold; border: none;
+}
+.rol{
+  height: 24%; width: 20%; border-radius: 20px; font-size: 11pt;
+}
+.login-button{
+  display: flex; height: 36%; width: 44%; border-radius: 12px; font-size: 13pt; cursor: pointer;
+  transition: background-color 0.3s ease; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  justify-content: center; align-items: center; text-decoration: none;
+  color: #1c398e; background-color: #fff; font-weight: bold;
+}
+.login-button:hover {
+  background-color: #bedbf8; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); transform: translateY(-2px);
+}
+
+.login-button:active {
+  background-color: #96b8da; color: red; box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5); transform: translateY(1px); 
+}
+
+
+
+.nav-content{
+  height: 60px; /*width: 97%;*/ background-color: #fff; display: flex; color: #1c398e; flex-direction: row; 
+  align-items: center; padding: 6px 24px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  position: sticky; top: 0; z-index: 100; box-sizing: border-box; width: 100%;
+}
+.filtros{
+  display: flex; height: 96%; width: 72%; align-items: center; gap: 6px;
+}
+.filtros button{border: none; color: #78a2ca; padding: 12px; border-radius: 12px;}
+.tab-button{
+  background-color: #fff; transition: background-color 0.3s ease;
+}
+.tab-button:hover{
+  background-color: #eeeeee;
+}
+.tab-button.activo{
+  background-color: #155dfc; color: #fff; transition: background-color 0.3s ease;
+}
+.tab-button.activo:hover{
+  background-color: black; color: #fff;
+}
+.filtros button, .link-grupo{
+  font-size: 12.5pt; font-weight: bold;
+}
+.link-grupo{
+  display: flex; width: 26.5%; justify-content: right;
+}
+.link-grupo a{text-decoration: none; color: #78a2ca;}
+.link-grupo a:hover{color: #1c398e;}
+.link-grupo a:active{color: red;}
+
+
+
+.main-contenido { 
+  display: flex; flex-direction: row; justify-content: center; gap: 24px; padding: 24px; 
+}
+.status-seccion {width: 35%; display: flex;}
+.status-card {
+  display: flex; flex-direction: column; margin: 0; padding: 24px; border-radius: 12px; flex-grow: 1;
+  background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); 
+}
+.status-header {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 18pt; font-weight: bold; color: #1c398e; padding-bottom: 24px;
+}
+.status-badge {
+  font-size: 12pt; font-weight: bold; color: #fff;
+  padding: 6px 18px; border-radius: 20px;
+}
+.status-card.open .status-badge {
+  background-color: #28a745;
+}
+.status-card.closed .status-badge {
+  background-color: #dc3545;
+}
+.status-body {display: flex; flex-direction: column; align-items: center;}
+.logo-conse, .logo-fup {
+  display: inline-block; width: 300px; height: 300px;
+  background-size: contain; background-repeat: no-repeat;
+  background-position: center; margin-bottom: 12px;
+}
+.logo-conse {background-image: url(../multimedia/Logo_CEFI.jpg);}
+.logo-fup {background-image: url(../multimedia/Logo_FUP.jpg);}
+.status-text {font-size: 14pt; font-weight: 500; color: #333; margin-bottom: 12px;}
+.status-schedule {text-align: center; line-height: 1.5;}
+.schedule-days {margin: 0; font-size: 14pt; font-weight: bold; color: #78a2ca;}
+.schedule-hours {margin: 0; font-size: 14pt; font-weight: 500; color: #1c398e;}
+.hidden {display: none;}
+
+.services-section {
+  width: 60%; background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); 
+  border-radius: 12px; padding: 24px;
+}
+.services-title {
+  font-size: 18pt; font-weight: bold; color: #1c398e; padding-bottom: 24px; margin: 0;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.service-card {
+  border-radius: 12px; border: 2px solid; padding: 24px; display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+}
+.service-card.available {background-color: #e6f7e6; border-color: #28a745;}
+.service-card.unavailable {background-color: #fde6e6; border-color: #dc3545;}
+.service-icon {
+  width: 60px; height: 60px; background-size: contain; background-position: center;
+  background-repeat: no-repeat; margin-bottom: 12px;
+}
+.service-name {
+  font-size: 14pt; font-weight: bold; color: #333; margin: 0; text-align: center;
+}
+.service-status {
+  padding: 6px 18px; border-radius: 20px; font-size: 12pt; font-weight: bold;
+  color: #fff; margin-top: 12px;
+}
+.service-card.available .service-status {background-color: #28a745;}
+.service-card.unavailable .service-status {background-color: #dc3545;}
+/* Faltan Imagenes / Icons */
+
+.inventory-section {
+  background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;  padding: 24px; margin: 0 24px 24px 24px; 
+}
+.inventory-header {
+  display: flex; justify-content: space-between; align-items: center; padding-bottom: 24px;
+}
+.inventory-title {
+  font-size: 18pt; font-weight: bold; color: #1c398e; margin: 0;
+}
+.update-status {
+  font-size: 11pt; color: #555; font-style: italic; border: 1px solid #ddd;
+  border-radius: 20px; padding: 4px 12px; font-weight: bold;
+}
+.inventory-list {display: flex; flex-direction: column;}
+.inventory-row-header, .inventory-item {
+  display: grid; grid-template-columns: 50% 15% 20% 15%; align-items: center;
+  padding: 16px 8px; border-bottom: 1px solid #f1f7fc; 
+}
+.inventory-row-header {font-size: 13pt; font-weight: bold; color: #78a2ca; }
+.inventory-item {font-size: 13pt; color: #333; font-weight: 500;}
+.inventory-item:last-child {border-bottom: none;}
+.col-total, .col-disponible, .col-estado {text-align: center;}
+.col-disponible.count-available {color: #28a745; font-weight: bold;}
+.status-badge.available {
+  background-color: #28a745;
+}
+.status-badge.unavailable {
+  background-color: #dc3545;
+}
+.inventory-item .status-badge {font-size: 11pt; padding: 4px 12px;}
+
+
+
+.footer {
+  background-color: #0f1c4a; color: #fff; padding: 24px; margin-top: auto; 
+}
+.footer-container {width: 97%; margin: 0 auto;}
+.footer-columns {
+  display: flex; flex-direction: row; justify-content: space-between; padding-bottom: 24px;
+}
+.footer-column {width: 30%;}
+.footer-column h3 {
+  font-size: 16pt; font-weight: bold; color: #fff; margin: 0 0 16px 0;
+}
+.footer-column p {font-size: 13pt; color: #bedbf8; margin: 0 0 8px 0;}
+.footer-column a {
+  display: block; font-size: 13pt; color: #78a2ca; text-decoration: none;
+  margin-bottom: 8px; transition: color 0.3s ease;
+}
+.footer-column a:hover {color: #fff;}
+.contact-item {
+  display: flex; align-items: center; font-size: 13pt; color: #bedbf8; margin-bottom: 12px;
+}
+.contact-item .material-icons {margin-right: 12px; color: #78a2ca;}
+.footer-divider {border: 0; height: 1px; background-color: #3e5aae;}
+.footer-copyright {padding-top: 24px; text-align: center;}
+.footer-copyright p {font-size: 11pt; color: #78a2ca; margin: 0;}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA DE LOGIN
+ * =========================================
+*/
+
+.login-container {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 24px; box-sizing: border-box; 
+}
+.login-logo {
+  width: 120px; height: 120px; background-image: url(../multimedia/Logo_VTWS_Luz.jpg); 
+  background-size: cover; background-repeat: no-repeat; border-radius: 50%;
+  background-position: center; margin-bottom: 16px;
+}
+.login-title {
+  font-size: 22pt; font-weight: bold; color: #1c398e; margin: 0;
+}
+.login-subtitle {
+  font-size: 16pt; font-weight: 500; color: #78a2ca; margin: 4px 0 24px 0;
+}
+.login-card {
+  background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); 
+  border-radius: 12px; padding: 32px; width: 100%; max-width: 450px; box-sizing: border-box;
+}
+.login-card h3 {
+  font-size: 18pt; font-weight: bold; color: #1c398e; margin: 0 0 24px 0; text-align: center;
+}
+.form-group {margin-bottom: 20px;}
+.form-group label {
+  display: block; font-size: 12pt; font-weight: bold; color: #333; margin-bottom: 8px;
+}
+.form-group input {
+  width: 100%; padding: 12px; font-size: 12pt; border: 1px solid #ccc;
+  border-radius: 8px; box-sizing: border-box;
+}
+.login-submit-button {
+  width: 100%; padding: 14px; border-radius: 12px; font-size: 13pt;
+  background-color: #1c398e; color: #fff; font-weight: bold; border: none;
+  cursor: pointer; transition: background-color 0.3s ease; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.login-submit-button:hover {background-color: #3e5aae;}
+.info-box {
+  background-color: #f1f7fc; border: 1px solid #bedbf8; border-radius: 8px;
+  padding: 16px; margin-top: 24px; font-size: 11pt; color: #333;
+}
+.info-box p {margin: 8px 0 0 0;}
+.back-link {
+  margin-top: 24px; text-decoration: none; color: #78a2ca; font-weight: bold; font-size: 12pt;
+}
+.back-link:hover {color: #1c398e;}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DEL DASHBOARD (ADMIN / MIEMBRO)
+ * =========================================
+*/
+
+.admin-header .empresa-sistema {border-right: none; width: auto;}
+.admin-header .empresa-sistema {border-right: none; width: auto;}
+.dashboard-rol {
+  justify-content: center; align-items: flex-end; gap: 8px; flex-direction: column;
+}
+.user-welcome {font-size: 14pt; font-weight: 300; color: #bedbf8;}
+.user-welcome strong {font-weight: 700; color: #fff;}
+.user-actions {display: flex; align-items: center; gap: 16px; }
+.dashboard-rol .rol {
+  height: 36px; width: auto; padding: 0 18px; background-color: #fff; 
+  color: #1c398e; display: flex; justify-content: center; align-items: center;
+  font-weight: bold; border: none; border-radius: 20px; font-size: 11pt;
+}
+.logout-button {
+  height: 36px; display: flex; justify-content: center; align-items: center;
+  background-color: #d9534f; color: #fff; padding: 0 18px; border-radius: 20px;
+  font-size: 11pt; font-weight: bold; text-decoration: none; transition: background-color 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.logout-button:hover {background-color: #c9302c;}
+.stats-bar {
+  display: flex; gap: 24px; padding: 24px; background-color: #f9fafb;
+  border-bottom: 1px solid #e0e0e0;
+}
+.stat-card {
+  display: flex; flex: 1; background-color: #fff; border-radius: 12px; padding: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); justify-content: space-between; align-items: flex-start;
+}
+.stat-info h3 {
+  margin: 0 0 8px 0; font-size: 14pt; color: #555; font-weight: 500;
+}
+.stat-number {font-size: 28pt; font-weight: 700; color: #1c398e;}
+.stat-number.urgent {color: #d9534f;}
+.stat-number.available {color: #28a745;}
+.stat-desc {font-size: 11pt; color: #777; margin-top: 8px; display: block;}
+.stat-icon {font-size: 36px; color: #ddd;}
+.stat-icon.urgent {color: #f0ad4e;}
+.dashboard-nav {
+  display: flex; justify-content: center; gap: 16px; padding: 16px 24px;
+  background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; margin: 24px 24px 0 24px; position: relative; z-index: 10;
+}
+.dash-nav-button {
+  font-family: 'Roboto', sans-serif; font-size: 13pt; font-weight: bold;
+  color: #78a2ca; background-color: #fff; border: 2px solid #fff;
+  border-radius: 12px; padding: 12px 24px; cursor: pointer; transition: all 0.3s ease;
+}
+.dash-nav-button:hover {color: #1c398e; background-color: #f1f7fc;}
+.dash-nav-button.activo {
+  color: #1c398e; background-color: #fff; border: 2px solid #1c398e; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.dashboard-content-area {padding: 24px;}
+.dash-page {display: flex; gap: 24px; flex-wrap: wrap;}
+.dash-page.hidden {display: none;}
+.dash-card {
+  background-color: #fff; border-radius: 12px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0; padding: 24px; flex: 1; 
+}
+.dash-card.full-width {flex-basis: 100%;}
+.dash-card-title {font-size: 18pt; font-weight: bold; color: #1c398e; margin: 0 0 24px 0;}
+.card-desc {font-size: 12pt; color: #777; margin-top: 16px;}
+.action-btn {
+  display: block; width: 100%; padding: 14px; margin-bottom: 12px; 
+  font-size: 13pt; font-weight: bold; border-radius: 12px; 
+  border: 2px solid transparent; cursor: pointer; transition: all 0.3s ease;
+  text-align: center; box-sizing: border-box; text-decoration: none;
+}
+.action-btn.green {background-color: #28a745; color: #fff;}
+.action-btn.green:hover { background-color: #1d7932; }
+.action-btn.dark {background-color: #e9a84c; color: #fff;}
+.action-btn.dark:hover { background-color: #b87f31; }
+.action-btn.red {background-color: #d9534f; color: #fff;}
+.action-btn.red:hover {background-color: #b93d39;}
+.action-btn.blue {background-color: #155dfc; color: #fff;}
+.action-btn.blue:hover {background-color: black;}
+.action-btn.outline {background-color: #fff; color: #1c398e; border: 2px solid #1c398e;}
+.action-btn.outline:hover {background-color: #bbbbbb;}
+.button-row {display: flex; gap: 16px; margin-top: 16px;}
+.recent-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0; border-bottom: 1px solid #f1f7fc;
+}
+.recent-item:last-child {border-bottom: none;}
+.item-details {display: flex; flex-direction: column;}
+.item-name {font-size: 13pt; font-weight: 500; color: #333;}
+.item-user {font-size: 11pt; color: #777;}
+.recent-status {
+  font-size: 11pt; font-weight: bold; padding: 4px 12px; border-radius: 20px;
+}
+.recent-status.active {background-color: #e3f2fd; color: #155dfc;}
+.recent-status.overdue {background-color: #fde6e6; color: #d9534f;}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA GESTIONAR INVENTARIO
+ * =========================================
+*/
+
+.inventory-stats-bar {
+  display: flex; gap: 24px; padding: 24px; background-color: #f9fafb; border-bottom: 1px solid #e0e0e0;
+}
+.manage-inventory-section {
+  background-color: #fff; border-radius: 12px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0; padding: 24px; margin: 24px;
+}
+.manage-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 24px; border-bottom: 1px solid #f1f7fc; margin-bottom: 24px;
+}
+.manage-title {font-size: 18pt; font-weight: bold; color: #1c398e; margin: 0;}
+.add-item-btn {display: inline-flex;  align-items: center; width: auto;  padding: 10px 20px; margin-bottom: 0;}
+.add-item-btn .material-icons {margin-right: 8px;}
+.inventory-table-manage {display: flex; flex-direction: column;}
+.inv-manage-header {
+  display: grid; grid-template-columns: 2fr 3fr 1fr 1fr 1fr 1fr 2fr; gap: 16px; 
+  padding: 12px 16px; border-bottom: 2px solid #ddd; font-size: 13pt;
+  font-weight: bold; color: #78a2ca;
+}
+.inv-manage-item {
+  display: grid; grid-template-columns: 2fr 3fr 1fr 1fr 1fr 1fr 2fr; gap: 16px;
+  align-items: center; padding: 16px; border-bottom: 1px solid #f1f7fc;
+  font-size: 12pt; color: #333;
+}
+.inv-manage-item:last-child {border-bottom: none;}
+.col-article .item-name {font-weight: 500; display: block;}
+.col-article .item-id {font-size: 10pt; color: #999;}
+.col-desc {
+  font-size: 11pt; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.category-tag {
+  font-size: 10pt; font-weight: bold; padding: 4px 8px; border-radius: 4px; color: #fff; display: inline-block;
+}
+.category-tag.consejeria {background-color: #deca5b;} 
+.category-tag.fup {background-color: #5bc0de;} 
+.col-total, .col-disp, .col-status, .col-cat {text-align: center;}
+.col-disp.count-available {color: #28a745; font-weight: bold;}
+.col-disp.count-unavailable {color: #d9534f; font-weight: bold;}
+.col-actions {display: flex; gap: 8px; justify-content: center;}
+.col-actions button {
+  display: inline-flex; align-items: center; padding: 6px 12px; 
+  font-size: 10pt; font-weight: bold; border-radius: 6px; 
+  border: none; cursor: pointer; transition: background-color 0.3s ease;
+}
+.col-actions .material-icons {font-size: 16px; margin-right: 4px;}
+.edit-btn {background-color: #155dfc; color: #fff;}
+.edit-btn:hover {background-color: #0d4edb;}
+.delete-btn {background-color: #d9534f; color: #fff;}
+.delete-btn:hover {background-color: #c9302c;}
+.back-to-dash-btn {
+  display: inline-block; margin-top: 24px; text-decoration: none;
+  color: #78a2ca; font-weight: bold; font-size: 12pt;
+}
+.back-to-dash-btn:hover {color: #1c398e;}
+
+
+/*
+ * =========================================
+ * ESTILOS PARA LOS MODALES --> IA
+ * =========================================
+*/
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
+.modal-close-btn:hover {
+    color: #333;
+}
+.modal-card h3 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+}
+.modal-card .form-group input,
+.modal-card .form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 12pt;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.modal-card .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z' fill='%23777'/%3E%3C/svg%3E"); /* Flecha SVG */
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+.modal-submit-btn {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.modal-button-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+.modal-cancel-btn {
+    flex: 1;
+    margin-bottom: 0;
+    padding: 12px 24px;
+}
+.modal-button-row .modal-submit-btn {
+    flex: 1;
+    margin-top: 0;
+    padding: 12px 24px;
+}
+.modal-button-row .action-btn {
+    flex: 1;            /* 1. Comparte el ancho por igual */
+    width: auto;        /* 2. Anula el 'width: 100%' de .action-btn */
+    padding: 12px 24px; /* 3. Fuerza una altura IDÉNTICA */
+    margin: 0;          /* 4. Anula el 'margin-top' o 'margin-bottom' */
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA REGISTRAR PRÉSTAMO
+ * =========================================
+*/
+
+/* Contenedor principal (similar a .main-contenido) */
+.register-loan-container {
+    display: flex;
+    flex-direction: row; /* Columnas lado a lado */
+    justify-content: center;
+    gap: 24px;
+    padding: 24px;
+    align-items: flex-start; /* Alinea las tarjetas arriba */
+}
+
+/* Tarjeta del formulario (izquierda) */
+.loan-form-card {
+    flex-basis: 45%; /* Ancho de la columna */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 32px;
+}
+
+.form-title {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+}
+
+/* Reutilizamos .form-group del login, pero ajustamos el select */
+.loan-form-card .form-group select,
+.loan-form-card .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 12pt;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif; /* Asegura la fuente */
+}
+.loan-form-card .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z' fill='%23777'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+.loan-form-card .form-group textarea {
+    resize: vertical; /* Permite redimensionar solo verticalmente */
+}
+.loan-form-card .form-group input:disabled {
+    background-color: #eee; /* Estilo para campo deshabilitado */
+    cursor: not-allowed;
+}
+
+.submit-loan-btn {
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 0; /* Anula margen de .action-btn */
+}
+
+/* Línea divisoria dentro del formulario */
+.form-divider {
+    border: 0;
+    height: 1px;
+    background-color: #eee; /* Color suave */
+    margin: 24px 0; /* Espaciado */
+}
+
+/* Títulos de sección dentro del formulario */
+.loan-form-card h4 {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 16px 0;
+}
+
+/* Estilo para el grupo del checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre checkbox y label */
+    margin-bottom: 20px;
+}
+/* Quita margen inferior del label del checkbox */
+.checkbox-group label {
+    margin-bottom: 0; 
+    cursor: pointer;
+}
+/* Tamaño del checkbox */
+.checkbox-group input[type="checkbox"] {
+    width: 16px; 
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Sección de detalles del solicitante (oculta por defecto) */
+.proxy-requester-details.hidden {
+    display: none;
+}
+
+/* Validación visual simple para inputs (se puede mejorar) */
+input:required:invalid {
+    border-color: #dc3545; /* Borde rojo si es requerido y está vacío/inválido */
+}
+/* Evita el borde rojo en el teléfono hasta que se escriba algo */
+input[type="tel"]:placeholder-shown {
+   border-color: #ccc; 
+}
+input[type="tel"]:required:invalid {
+    border-color: #dc3545;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px; /* Espacio entre los campos de la fila */
+    align-items: flex-start; /* Alinea los labels arriba */
+}
+
+/* Hace que cada .form-group dentro de .form-row ocupe la mitad del espacio */
+.form-row .form-group {
+    flex: 1; /* Ocupa espacio disponible equitativamente */
+    /* Anula el margen inferior por defecto para controlar el espaciado con gap */
+    margin-bottom: 0; 
+}
+
+/* Añade un margen inferior a las filas para separarlas */
+.form-row {
+    margin-bottom: 20px; 
+}
+
+/* Asegura que el último form-group antes de un hr o h4 no tenga margen extra */
+.form-group:has(+ hr),
+.form-group:has(+ h4) {
+    margin-bottom: 0;
+}
+.form-row:has(+ hr),
+.form-row:has(+ h4) {
+     margin-bottom: 0;
+}
+
+
+/* Tarjeta de artículos disponibles (derecha) */
+.available-items-card {
+    flex-basis: 50%; /* Ancho de la columna */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 32px;
+    /* Necesitamos altura mínima si la lista es corta */
+    min-height: calc(100% - 64px); /* Altura total menos padding */
+    display: flex; /* Para posicionar el botón 'Volver' abajo */
+    flex-direction: column;
+}
+
+.available-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f7fc;
+}
+.items-title {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0;
+}
+.item-count-badge {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #555;
+    background-color: #eee;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Lista de artículos */
+.available-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espacio entre items */
+    margin-bottom: 24px; /* Espacio antes del botón 'Volver' */
+}
+.available-items-list.hidden { display: none; } /* Para ocultar con JS */
+
+.available-item {
+    display: flex;
+    align-items: center;
+    background-color: #f9fafb; /* Fondo gris claro */
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+.available-item .item-name {
+    font-size: 13pt;
+    font-weight: 500;
+    color: #333;
+    flex-grow: 1;
+    margin-right: 16px;
+}
+.available-item .item-quantity {
+    font-size: 11pt;
+    color: #777;
+    min-width: 100px;
+    text-align: right;
+    margin-right: 16px;
+}
+.item-availability {
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: #fff;
+    min-width: 80px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.item-availability.available { background-color: #28a745; } /* Verde */
+.item-availability.low { background-color: #f0ad4e; } /* Naranja */
+.item-availability.unavailable { background-color: #d9534f; } /* Rojo */
+
+
+/* Botón Volver al Dashboard en esta página */
+.available-items-card .back-to-dash-btn {
+    margin-top: auto; /* Empuja el botón al final de la tarjeta */
+    align-self: flex-start; /* Lo alinea a la izquierda */
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA PROCESAR DEVOLUCIÓN
+ * =========================================
+*/
+
+/* Contenedor principal de 2 columnas */
+.return-container {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    align-items: stretch; /* Alinea columnas arriba */
+}
+
+/* Columna Izquierda (Lista de préstamos) */
+.active-loans-column {
+    flex-basis: 60%; /* Más ancha */
+    display: flex; /* Para posicionar el botón Volver */
+    flex-direction: column;
+}
+
+.active-loans-column .quick-stats-card {
+  margin-bottom: 0;
+}
+
+.active-loans-column .back-to-dash-btn {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+.loan-list-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
+.loan-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.loan-list-header h2 {
+    font-size: 24pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0;
+}
+/* Reutilizamos .item-count-badge */
+
+/* Buscador */
+.loan-search {
+    position: relative; /* Para el icono */
+    margin-bottom: 24px;
+}
+.loan-search input {
+    width: 100%;
+    padding: 12px 16px 12px 40px; /* Espacio a la izq para icono */
+    font-size: 12pt;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+
+/* Lista de items de préstamo */
+.loan-list {
+    max-height: 400px; /* Altura máxima con scroll */
+    overflow-y: auto; /* Scroll vertical */
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+.loan-item {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.loan-item:last-child { border-bottom: none; }
+.loan-item:hover { background-color: #f1f7fc; } /* Tu color de body */
+
+.loan-item.selected {
+    background-color: #e3f2fd; /* Azul claro */
+    border-left: 4px solid #155dfc; /* Borde azul */
+    padding-left: 12px;
+}
+.loan-item.overdue { /* Estilo para préstamos vencidos en la lista */
+    border-left: 4px solid #d9534f; /* Borde rojo */
+    padding-left: 12px;
+}
+.loan-item.selected.overdue { /* Combinación */
+     background-color: #fde6e6; /* Rojo pálido */
+}
+
+.loan-item-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: #333;
+    display: block; /* Ocupa toda la línea */
+    margin-bottom: 8px;
+}
+.loan-item-details {
+    font-size: 13pt;
+    color: #777;
+    display: block; /* Cada detalle en su línea */
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+.status-tag { /* Para Vencido, etc. */
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 12px;
+    color: #fff;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+.status-tag.overdue { background-color: #d9534f; }
+
+
+/* Columna Derecha (Detalles y Stats) */
+.return-details-column {
+    flex-basis: 40%; /* Más estrecha */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tarjeta de Detalles de Devolución */
+.return-details-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    flex-grow: 1;
+}
+.return-details-card h2 {
+    font-size: 24pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f7fc;
+}
+
+.placeholder-message {
+    text-align: center;
+    color: #aaa;
+    padding: 40px 0;
+}
+.placeholder-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.loan-details.hidden { display: none; }
+.loan-details h4 {
+    font-size: 18pt;
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 16px 0;
+}
+.detail-item {
+    font-size: 12pt;
+    color: #333;
+    margin-bottom: 10px;
+}
+.detail-item strong { color: #555; }
+
+.detail-item#detail-proxy-info.hidden {
+  display: none;
+}
+
+#overdue-warning.hidden { display: none; }
+#overdue-warning { margin: 16px 0; }
+
+/* Reutilizamos .form-group y textarea */
+.comments-section { margin-top: 24px; }
+.comments-section label { margin-bottom: 8px; }
+
+.comments-section textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 12pt;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif; 
+  resize: vertical; /* Allow vertical resize */
+  min-height: 80px; /* Minimum height */
+}
+
+/* Botones Confirmar/Cancelar en detalles */
+#confirm-return-btn { width: 100%; margin: 16px 0 8px 0; }
+#cancel-return-btn { width: 100%; margin-bottom: 0; }
+
+
+/* Tarjeta de Estadísticas Rápidas */
+.quick-stats-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+}
+.quick-stats-card h3 {
+    font-size: 20pt;
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f1f7fc;
+}
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+.stat-value { font-weight: bold; }
+.stat-value.stat-urgent {
+    background-color: #d9534f;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+.stat-value.stat-ok {
+    background-color: #28a745;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* Banner de Éxito */
+.success-banner {
+    background-color: #dff0d8; /* Verde pálido */
+    color: #3c763d; /* Verde oscuro */
+    border: 1px solid #d6e9c6;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 24px 24px 24px; /* Margen debajo del header */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.success-banner.hidden { display: none; }
+
+/* Full Width Stats Card */
+.quick-stats-card.full-width-stats {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin: 24px; /* Add margin around it */
+}
+.quick-stats-card.full-width-stats h3 {
+    margin: 0 0 16px 0; /* Adjust margin */
+    padding-bottom: 16px; /* Adjust padding */
+    border-bottom: 1px solid #f1f7fc;
+    font-size: 16pt; /* Slightly larger title */
+    color: #333;
+}
+/* Wrapper for stats items for alignment */
+.stats-content {
+    display: flex;
+    justify-content: space-around; /* Distribute items evenly */
+    align-items: center;
+}
+.full-width-stats .stat-item {
+    margin-bottom: 0; /* Remove bottom margin */
+    flex-direction: column; /* Stack label and value vertically */
+    align-items: center; /* Center align */
+    gap: 4px; /* Small gap between label and value */
+    font-size: 13pt;
+}
+.full-width-stats .stat-item span:first-child { /* The label */
+    color: #777;
+    font-size: 11pt;
+}
+.full-width-stats .stat-value {
+    font-size: 18pt; 
+    font-weight: bold;
+    color: #fff; /* Default text color white */
+    background-color: #78a2ca; /* Default background: Your link blue */
+    padding: 4px 12px; /* Consistent padding */
+    border-radius: 10px; /* Consistent radius */
+    min-width: 30px; /* Ensure minimum width */
+    text-align: center; /* Center the number */
+}
+/* Adjust badge styles slightly for this context */
+.full-width-stats .stat-value.stat-urgent,
+.full-width-stats .stat-value.stat-ok {
+    padding: 4px 12px;
+    font-size: 18pt;
+}
+/* Override background for urgent/ok */
+.full-width-stats .stat-value.stat-urgent {
+    background-color: #d9534f; /* Red */
+}
+.full-width-stats .stat-value.stat-ok {
+    background-color: #28a745; /* Green */
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA PRÉSTAMOS VENCIDOS
+ * =========================================
+*/
+
+/* Contenedor principal */
+.overdue-container {
+    padding: 24px;
+}
+
+/* Banner de advertencia */
+.warning-banner {
+    background-color: #fcf8e3; /* Amarillo pálido */
+    color: #8a6d3b; /* Marrón */
+    border: 1px solid #faebcc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0 24px 24px 24px; /* Margen debajo del header */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.warning-banner .material-icons {
+    color: #f0ad4e; /* Naranja */
+}
+
+/* Barra de Stats (reutiliza .stats-bar pero ajusta iconos/colores si es necesario) */
+.overdue-stats-bar {
+    display: grid; /* Cambiado a grid para mejor responsividad si fuera necesario */
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+    gap: 24px;
+    margin-bottom: 24px;
+}
+/* Reutilizamos .stat-card, .stat-info, etc. */
+
+
+/* Tarjeta principal para la lista */
+.overdue-list-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin-bottom: 24px; /* Espacio antes del botón Volver */
+}
+.overdue-list-card h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f7fc;
+}
+
+/* Lista de préstamos vencidos */
+.overdue-loan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espacio entre items */
+}
+
+/* Item individual de préstamo vencido */
+.overdue-loan-item {
+    display: grid;
+    /* Columnas: Info | Fechas | Acciones */
+    grid-template-columns: 3fr 2fr 1.5fr; 
+    gap: 20px;
+    align-items: center;
+    background-color: #fde6e6; /* Fondo rojo pálido */
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb; /* Borde rojo claro */
+}
+
+.overdue-item-info { display: flex; flex-direction: column; }
+.overdue-item-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+/* Reutilizamos .status-tag.overdue */
+.overdue-item-title .category-tag { /* Hacemos el tag de categoría más pequeño aquí */
+    font-size: 9pt;
+    padding: 3px 6px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.overdue-item-details {
+    font-size: 11pt;
+    color: #555;
+    line-height: 1.5;
+}
+
+.overdue-item-dates { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; /* Alinea las fechas a la izquierda */
+}
+
+.overdue-item-actions {
+    display: flex;
+    flex-direction: column; /* Botones uno encima del otro */
+    align-items: flex-end; /* Alinea botones a la derecha */
+    gap: 8px;
+}
+
+/* Botones más pequeños para la lista */
+.action-btn.small-btn {
+    padding: 8px 16px;
+    font-size: 11pt;
+    width: auto; /* Ancho automático */
+    margin-bottom: 0;
+}
+.action-btn.small-btn .material-icons {
+    font-size: 16px;
+    margin-right: 4px;
+}
+
+/* Modal de Confirmación de Devolución */
+/* Reutilizamos .modal-overlay, .modal-card, .modal-close-btn, etc. */
+.loan-details-modal { /* Contenedor para los detalles dentro del modal */
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+.loan-details-modal .detail-item { /* Estilo para los detalles en el modal */
+   font-size: 12pt;
+   margin-bottom: 8px;
+}
+.urgent-text { /* Para los días vencidos */
+    color: #d9534f;
+    font-weight: bold;
+}
+/* Reutilizamos .comments-section, .modal-button-row, etc. */
+/* --- AÑADE ESTAS REGLAS --- */
+
+/* Estilo para el contenedor de detalles dentro del modal */
+.loan-details-modal h4 {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #555;
+    margin: 16px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed #eee;
+}
+.loan-details-modal h4:first-of-type {
+    margin-top: 0; /* Quita margen superior del primer h4 */
+}
+
+/* Para centrar un solo botón en el modal */
+.modal-button-row.single-button {
+    justify-content: center;
+}
+.modal-button-row.single-button .modal-cancel-btn {
+    width: auto; /* Ancho automático */
+    min-width: 120px; /* Ancho mínimo */
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA HISTORIAL DE PRÉSTAMOS
+ * =========================================
+*/
+
+/* Contenedor principal */
+.history-container {
+    padding: 24px;
+}
+
+/* Tarjeta de Filtros */
+.filter-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+.filter-card h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+}
+.filter-form {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: 20px; /* Space between filter groups */
+    align-items: flex-end; /* Aligns labels and inputs nicely */
+}
+.filter-group {
+    flex: 1; /* Allows groups to share space */
+    min-width: 180px; /* Minimum width before wrapping */
+    margin-bottom: 0; /* Remove default margin */
+}
+.filter-group label {
+    font-size: 11pt; /* Smaller labels */
+    margin-bottom: 6px;
+}
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 10px 12px; /* Slightly smaller padding */
+    font-size: 12pt;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.filter-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z' fill='%23777'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+.filter-group.hidden { display: none; } /* To hide article/student fields */
+
+.filter-submit-btn {
+    flex-basis: 100px; /* Fixed basis for the button */
+    margin-bottom: 0; /* Override default */
+    padding: 10px 12px; /* Match input height */
+}
+
+
+/* Pestañas (Resultados / Estadísticas) */
+.history-tabs {
+    display: flex;
+    gap: 0; /* No gap between tabs */
+    margin-bottom: 24px;
+    background-color: #e9ecef; /* Light gray background */
+    border-radius: 12px;
+    padding: 6px;
+    width: fit-content; /* Adjust width to content */
+    margin-left: auto; /* Push tabs to the right if needed (optional) */
+    margin-right: auto; /* Center tabs (optional) */
+}
+.history-tab-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 13pt;
+    font-weight: 500;
+    color: #555;
+    background-color: transparent; /* Transparent by default */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.history-tab-button:hover {
+    background-color: #dee2e6; /* Slightly darker gray on hover */
+}
+.history-tab-button.activo {
+    color: #1c398e; /* Your primary blue */
+    background-color: #fff; /* White background when active */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+
+.history-tab-content.hidden {
+    display: none;
+}
+
+/* Tarjeta para la Lista de Historial */
+.history-list-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+}
+.history-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f7fc;
+}
+.history-list-header h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0;
+}
+/* Reutilizamos .item-count-badge */
+
+/* Lista de items del historial */
+.history-loan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.history-loan-item {
+    display: grid;
+    /* Main Info | Dates */
+    grid-template-columns: 3fr 1fr; 
+    gap: 24px;
+    align-items: flex-start; /* Align tops */
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+/* Different background based on status */
+.history-loan-item.returned { background-color: #f9fafb; border-color: #eee; }
+.history-loan-item.overdue { background-color: #fde6e6; border-color: #f5c6cb; }
+.history-loan-item.active { background-color: #e3f2fd; border-color: #d1e7fc; }
+
+.history-item-main { display: flex; flex-direction: column; }
+.history-item-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+/* Reutilizamos .status-tag and .category-tag */
+.history-item-title .status-tag,
+.history-item-title .category-tag {
+    font-size: 9pt;
+    padding: 3px 6px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+/* Add specific colors for returned/active tags */
+.status-tag.returned { background-color: #adb5bd; } /* Gray */
+.status-tag.active { background-color: #155dfc; } /* Blue */
+
+.history-item-details {
+    font-size: 11pt;
+    color: #555;
+    line-height: 1.5;
+}
+.history-item-comments {
+    font-size: 10pt;
+    color: #777;
+    font-style: italic;
+    margin-top: 8px;
+    padding-left: 10px;
+    border-left: 2px solid #eee;
+}
+
+.history-item-dates { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+    padding-top: 4px; /* Align dates slightly lower */
+}
+.history-item-dates .history-item-details {
+    font-size: 10pt; /* Smaller date text */
+}
+
+/* Tarjeta de Estadísticas */
+.history-stats-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+}
+.history-stats-card h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+}
+.stats-summary {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.stat-category-count span:first-child { /* The number */
+    font-size: 24pt;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+}
+.stat-category-count span:last-child { /* The label */
+    font-size: 12pt;
+    color: #777;
+}
+/* Reutilizamos .stat-number.available / .urgent colors */
+.stat-category-count .stat-number.available { color: #28a745; }
+.stat-category-count .stat-number.urgent { color: #d9534f; }
+
+.history-stats-card h3 {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #555;
+    margin: 24px 0 16px 0;
+}
+.popular-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.popular-items-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 12pt;
+    color: #333;
+    border-bottom: 1px solid #f1f7fc;
+}
+.popular-items-list li:last-child { border-bottom: none; }
+.popular-items-list li span:last-child { /* The count */
+    font-weight: bold;
+    color: #777;
+}
+
+/* Container for filter buttons */
+.filter-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end; /* Align with bottom of inputs */
+    margin-left: auto; /* Push buttons to the right */
+    padding-bottom: 0; /* Align button bottom edge */
+}
+
+/* Adjust button styles within filter bar */
+.filter-form .action-btn {
+    flex-basis: auto; /* Allow natural width */
+    width: auto;
+    padding: 10px 20px; /* Match input height better */
+    margin-bottom: 0; /* Remove default margin */
+}
+
+/* Specific style for Clear button */
+.clear-filters-btn {
+   background-color: #f1f7fc; /* Light background */
+   color: #555; /* Gray text */
+   border-color: #ccc; /* Gray border */
+}
+.clear-filters-btn:hover {
+    background-color: #e2e6ea;
+    border-color: #aaa;
+}
+
+
+/* Repositioned Back to Dashboard Button */
+.back-to-dash-btn.history-back-btn {
+    display: block; 
+    width: fit-content;
+    margin: 0 0 24px 24px; /* Remove top margin, keep bottom, add left margin */
+    /* Inherits font-size, color etc from base .back-to-dash-btn */
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA DE REPORTES
+ * =========================================
+*/
+
+/* Contenedor principal */
+.reports-container {
+    padding: 24px;
+}
+
+/* Tarjeta de Configuración (reusa .filter-card) */
+.report-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 24px 0;
+}
+.report-header h2 { margin: 0; }
+.report-header .material-icons { font-size: 28pt; }
+
+/* Ajusta los inputs de fecha/semana */
+.filter-group input[type="month"],
+.filter-group input[type="week"] {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 10px 12px; /* Asegura el mismo padding que otros inputs */
+}
+.filter-group small {
+    display: block;
+    font-size: 9pt;
+    color: #777;
+    margin-top: 4px;
+}
+
+/* Botón de Generar Vista Previa */
+.filter-form .filter-submit-btn .material-icons {
+    margin-right: 8px;
+    font-size: 16px;
+    vertical-align: middle; /* Alinea mejor el icono */
+}
+
+/* Nota informativa en la tarjeta de config */
+.report-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11pt;
+    color: #555;
+    background-color: #f1f7fc;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 24px;
+}
+.report-note .material-icons {
+    font-size: 18px;
+    color: #78a2ca;
+}
+
+/* Tarjeta de Vista Previa (reutiliza estilos de historial) */
+.report-preview-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    margin: 24px 0; /* Margen vertical */
+}
+.report-preview-card.hidden { display: none; }
+.report-preview-card h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #1c398e;
+    margin: 0 0 8px 0;
+}
+.report-preview-card p {
+    font-size: 12pt;
+    color: #555;
+    margin: 0 0 24px 0;
+}
+.report-preview-card p strong {
+    color: #1c398e;
+}
+
+/* Reutilizamos .stats-summary, .popular-items-list de historial */
+.report-preview-card .stats-summary {
+    justify-content: space-around;
+}
+.report-preview-card .popular-items-list li {
+    font-size: 13pt;
+}
+
+/* Explicación del PDF */
+.pdf-explanation {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f1f7fc;
+}
+.pdf-explanation h4 {
+    font-size: 14pt;
+    font-weight: 500;
+    color: #333;
+    margin: 0 0 8px 0;
+}
+.pdf-explanation p {
+    font-size: 11pt;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+.pdf-explanation .action-btn.disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+}
+.pdf-explanation .action-btn.disabled .material-icons {
+    margin-right: 8px;
+    vertical-align: bottom;
+}
+
+
+
+/*
+ * =========================================
+ * ESTILOS DE LA PÁGINA GESTIONAR USUARIOS
+ * =========================================
+*/
+
+/* Define la parrilla (grid) para la lista de usuarios */
+.user-manage-header,
+.user-manage-item {
+    display: grid;
+    /* Columnas: Usuario | Correo | Rol | Estado | Último Acceso | Acciones */
+    grid-template-columns: 2fr 2.5fr 1fr 1fr 1.5fr 1.5fr;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f7fc;
+}
+
+/* Estilo del encabezado de la lista de usuarios */
+.user-manage-header {
+    font-size: 13pt;
+    font-weight: bold;
+    color: #78a2ca;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilo para cada fila de usuario */
+.user-manage-item {
+    font-size: 12pt;
+    color: #333;
+}
+.user-manage-item:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para los badges de Rol (Admin/Miembro) */
+.rol-badge {
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+}
+.rol-badge.admin {
+    background-color: #d9534f; /* Rojo/Magenta */
+}
+.rol-badge.member {
+    background-color: #155dfc; /* Azul */
+}
+
+/* Estilos para los botones de acción en la fila */
+.user-manage-item .col-actions {
+    gap: 8px; /* Espacio entre botones */
+}
+.user-manage-item .action-btn.small-btn {
+    padding: 6px 12px;
+    font-size: 10pt;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto; /* Ancho automático */
+    margin-bottom: 0;
+}
+.user-manage-item .edit-user-btn {
+    background-color: #155dfc; /* Azul */
+    color: #fff;
+}
+.user-manage-item .edit-user-btn:hover {
+    background-color: #0d4edb;
+}
+
+/* Botón 'Activar' (Verde) */
+.user-manage-item .activate {
+    background-color: #28a745;
+    color: #fff;
+}
+.user-manage-item .activate:hover {
+    background-color: #1d7932;
+}
+
+/* Botón 'Desactivar' (Rojo) */
+.user-manage-item .deactivate {
+    background-color: #d9534f;
+    color: #fff;
+}
+.user-manage-item .deactivate:hover {
+    background-color: #c9302c;
+}
