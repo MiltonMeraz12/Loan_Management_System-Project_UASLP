@@ -173,21 +173,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Lógica al ENVIAR el formulario de AGREGAR ---
     if (addItemForm) {
         addItemForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita que la página se recargue
-            console.log("Artículo agregado (visualmente)");
-            // Aquí iría la lógica para enviar los datos al servidor (PHP, etc.)
-            closeModal(addItemModal); // Cierra el modal
         });
     }
 
     // --- Lógica al ENVIAR el formulario de EDITAR ---
      if (editItemForm) {
         editItemForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita que la página se recargue
-            const itemId = document.getElementById('edit-item-id').value;
-            console.log("Cambios guardados para item ID:", itemId, "(visualmente)");
-            // Aquí iría la lógica para enviar los datos al servidor
-            closeModal(editItemModal); // Cierra el modal
         });
     }
 
@@ -232,112 +223,155 @@ document.addEventListener('DOMContentLoaded', function() {
                 const confirmed = confirm(`¿Estás seguro de que deseas eliminar "${itemName}" (ID: ${itemId})?`);
 
                 if (confirmed) {
-                    console.log("Eliminando item ID:", itemId, "(visualmente)");
-                    // Aquí iría la lógica para eliminar en el servidor
-                    itemRow.remove(); // Elimina la fila de la tabla (solo visual)
+                    window.location.href = '../control/eliminar_articulo.php?id=' + itemId;
+                }
+            }
+
+            // Si se hizo clic en un botón REACTIVAR (NUEVO)
+            if (event.target.closest('.reactivate-btn')) {
+                const button = event.target.closest('.reactivate-btn');
+                const itemId = button.dataset.id;
+                const itemRow = button.closest('.inv-manage-item');
+                const itemName = itemRow.querySelector('.item-name').textContent;
+
+                const confirmed = confirm(`¿Deseas reactivar el artículo "${itemName}"? Volverá a estar disponible para préstamos.`);
+
+                if (confirmed) {
+                    window.location.href = '../control/reactivar_articulo.php?id=' + itemId;
                 }
             }
         });
     }
 
     // ==========================================================
-    // NUEVA LÓGICA PARA LA PÁGINA REGISTRAR NUEVO PRÉSTAMO
+    // LÓGICA PARA LA PÁGINA REGISTRAR NUEVO PRÉSTAMO
     // ==========================================================
 
-    // --- Selección de Elementos (Solo si estamos en esa página) ---
     const registerLoanForm = document.getElementById('register-loan-form');
-    
+
     // Solo ejecuta esta lógica si el formulario existe en la página actual
     if (registerLoanForm) {
         
+        // Selectores de Categoría y Artículo
         const categorySelect = document.getElementById('loan-category');
-        const studentKeyInput = document.getElementById('student-key'); // Ya validado con pattern HTML
-        const studentNameInput = document.getElementById('student-name');
         const loanItemSelect = document.getElementById('loan-item');
+        
+        // Elementos visuales (Tablas laterales)
         const availableItemsTitle = document.getElementById('available-items-title');
-        const itemCountBadge = document.getElementById('item-count');
-        const itemsListConsejería = document.getElementById('items-list-consejeria');
+        const itemCountBadge = document.getElementById('item-count'); 
+        const itemsListConsejeria = document.getElementById('items-list-consejeria');
         const itemsListFup = document.getElementById('items-list-fup');
+        
+        // Inputs del Estudiante
+        const studentKeyInput = document.getElementById('student-key');
+        const studentNameInput = document.getElementById('student-name');
+        const studentPhoneInput = document.getElementById('student-phone');
+        const studentFacultySelect = document.querySelector('select[name="studentFaculty"]'); // Nuevo selector de Facultad
+        
+        // Inputs del Proxy
         const proxyCheckbox = document.getElementById('proxy-requester-checkbox');
         const proxyDetailsSection = document.getElementById('proxy-details-section');
         const proxyNameInput = document.getElementById('proxy-name');
         const proxyPhoneInput = document.getElementById('proxy-phone');
-        const studentPhoneInput = document.getElementById('student-phone');
-        // El campo "Autorizado por" se deja como está en el HTML por ahora
 
-        // --- Función para actualizar la lista de artículos disponibles y el dropdown ---
-        const updateAvailableItems = () => {
-            const selectedCategory = categorySelect.value;
-            let visibleItemList, hiddenItemList, categoryName;
+        // --- 1. GUARDAR COPIA DE SEGURIDAD (CLAVE PARA EL ÉXITO DEL SELECT) ---
+        // Guardamos todas las opciones originales que PHP generó
+        // Slice(1) ignora la primera opción "Selecciona un artículo"
+        const allOptionsCache = Array.from(loanItemSelect.options).slice(1);
 
-            // Determina qué lista mostrar/ocultar y el nombre
-            if (selectedCategory === 'consejeria') {
-                visibleItemList = itemsListConsejería;
-                hiddenItemList = itemsListFup;
-                categoryName = 'Consejería';
-            } else {
-                visibleItemList = itemsListFup;
-                hiddenItemList = itemsListConsejería;
-                categoryName = 'FUP';
-            }
+        // --- 2. FUNCIÓN DE ACTUALIZACIÓN DE INTERFAZ ---
+        const updateInterface = () => {
+            const selectedCategory = categorySelect.value; // 'consejeria' o 'fup'
+            let categoryName = (selectedCategory === 'consejeria') ? 'Consejería' : 'FUP';
 
-            // Muestra/oculta las listas correctas
-            visibleItemList.classList.remove('hidden');
-            hiddenItemList.classList.add('hidden');
-
-            // Actualiza el título y el contador de artículos
-            availableItemsTitle.textContent = `Artículos Disponibles - ${categoryName}`;
-            const itemCount = visibleItemList.querySelectorAll('.available-item').length;
-            itemCountBadge.textContent = `${itemCount} artículos`;
-
-            // Limpia el dropdown de "Artículo a Prestar" (dejando el placeholder)
+            // A. FILTRAR EL SELECT DE ARTÍCULOS
+            // Limpiamos el select (dejando solo el placeholder)
             loanItemSelect.innerHTML = '<option value="" disabled selected>Selecciona un artículo</option>';
-
-            // Llena el dropdown con los artículos DISPONIBLES de la categoría seleccionada
-            const items = visibleItemList.querySelectorAll('.available-item');
-            items.forEach(item => {
-                const name = item.querySelector('.item-name').textContent;
-                const quantityText = item.querySelector('.item-quantity').textContent; // "Cantidad: X"
-                const quantity = parseInt(quantityText.split(':')[1].trim()); // Extrae el número
-                
-                // Solo añade al dropdown si hay cantidad disponible
-                if (quantity > 0) {
-                    const option = document.createElement('option');
-                    // Usamos el ID del item si lo tuviéramos, por ahora el nombre
-                    // option.value = item.dataset.id; // Suponiendo que tuvieras data-id en el item div
-                    option.value = name; // Usamos el nombre como valor temporal
-                    option.textContent = `${name} (Cantidad: ${quantity})`;
-                    loanItemSelect.appendChild(option);
+            
+            // Insertamos SOLO las opciones que coinciden con la categoría, clonándolas
+            allOptionsCache.forEach(option => {
+                if (option.dataset.category === selectedCategory) {
+                    loanItemSelect.appendChild(option.cloneNode(true));
                 }
             });
+
+            // B. ACTUALIZAR LISTAS LATERALES (VISUAL)
+            if (selectedCategory === 'consejeria') {
+                if(itemsListConsejeria) itemsListConsejeria.classList.remove('hidden');
+                if(itemsListFup) itemsListFup.classList.add('hidden');
+                if(itemCountBadge && itemsListConsejeria) {
+                    itemCountBadge.textContent = `${itemsListConsejeria.children.length} artículos`;
+                }
+            } else {
+                if(itemsListConsejeria) itemsListConsejeria.classList.add('hidden');
+                if(itemsListFup) itemsListFup.classList.remove('hidden');
+                if(itemCountBadge && itemsListFup) {
+                    itemCountBadge.textContent = `${itemsListFup.children.length} artículos`;
+                }
+            }
+            if(availableItemsTitle) availableItemsTitle.textContent = `Artículos Disponibles - ${categoryName}`;
         };
 
-        // --- Evento: Cambiar la Categoría ---
-        categorySelect.addEventListener('change', updateAvailableItems);
+        // --- 3. AUTOCOMPLETADO POR CLAVE (AJAX) ---
+        studentKeyInput.addEventListener('blur', () => {
+            const clave = studentKeyInput.value.trim();
 
-        // --- Evento: Formatear Nombre del Estudiante mientras escribe ---
-        studentNameInput.addEventListener('input', () => {
-            let value = studentNameInput.value;
-            // 1. Quitar caracteres no permitidos (solo letras, ñ y espacios)
-            value = value.replace(/[^a-zA-ZñÑ\s]/g, '');
-            // 2. Convertir primera letra de cada palabra a mayúscula
-            value = value.toLowerCase().replace(/\b[a-zñ]/g, char => char.toUpperCase());
-            // 3. Reemplazar múltiples espacios con uno solo
-            value = value.replace(/\s+/g, ' ');
-            // 4. Actualizar el valor del input
-            studentNameInput.value = value;
+            // Solo buscamos si parece una clave válida (6 dígitos)
+            if (clave.length === 6) {
+                document.body.style.cursor = 'wait'; // Feedback visual
+
+                fetch(`../control/buscar_estudiante.php?clave=${clave}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        document.body.style.cursor = 'default';
+
+                        if (result.success && result.data) {
+                            console.log("Estudiante encontrado:", result.data);
+                            
+                            // Rellenar campos automáticamente
+                            studentNameInput.value = result.data.nombre_completo;
+                            studentPhoneInput.value = result.data.telefono;
+                            
+                            // Seleccionar la facultad correcta
+                            if (result.data.facultad && studentFacultySelect) {
+                                studentFacultySelect.value = result.data.facultad;
+                            }
+                            
+                            // Efecto visual de éxito (parpadeo verde)
+                            studentNameInput.style.backgroundColor = "#e8f5e9";
+                            setTimeout(() => { studentNameInput.style.backgroundColor = ""; }, 1000);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error al buscar estudiante:", error);
+                        document.body.style.cursor = 'default';
+                    });
+            }
         });
 
-        // --- Evento: Mostrar/Ocultar detalles del solicitante ---
+        // --- 4. FORMATO DE TEXTO (Solo letras para nombres) ---
+        const formatName = (input) => {
+            let value = input.value;
+            value = value.replace(/[^a-zA-ZñÑ\s]/g, '');
+            value = value.toLowerCase().replace(/\b[a-zñ]/g, char => char.toUpperCase());
+            value = value.replace(/\s+/g, ' ');
+            input.value = value;
+        };
+
+        studentNameInput.addEventListener('input', () => formatName(studentNameInput));
+        proxyNameInput.addEventListener('input', () => formatName(proxyNameInput));
+
+        // --- 5. EVENTO DE CAMBIO DE CATEGORÍA ---
+        categorySelect.addEventListener('change', updateInterface);
+
+        // --- 6. EVENTO DE PROXY (CHECKBOX) ---
         proxyCheckbox.addEventListener('change', () => {
             if (proxyCheckbox.checked) {
                 proxyDetailsSection.classList.remove('hidden');
-                // Hacer campos del solicitante requeridos
                 proxyNameInput.required = true;
                 proxyPhoneInput.required = true;
             } else {
                 proxyDetailsSection.classList.add('hidden');
-                // Quitar 'required' y limpiar valores
                 proxyNameInput.required = false;
                 proxyPhoneInput.required = false;
                 proxyNameInput.value = ''; 
@@ -345,96 +379,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // --- Evento: Formatear Nombre del Solicitante (similar al del estudiante) ---
-        proxyNameInput.addEventListener('input', () => {
-            let value = proxyNameInput.value;
-            value = value.replace(/[^a-zA-ZñÑ\s]/g, '');
-            value = value.toLowerCase().replace(/\b[a-zñ]/g, char => char.toUpperCase());
-            value = value.replace(/\s+/g, ' ');
-            proxyNameInput.value = value;
-        });
-
-        // --- Evento: Enviar el Formulario ---
+        // --- 7. EVENTO SUBMIT (VALIDACIONES FINALES) ---
         registerLoanForm.addEventListener('submit', (event) => {
-            event.preventDefault(); 
-
-            // --- VALIDACIÓN (Actualizada) ---
             
-            // 1. Formatea nombres
-            studentNameInput.dispatchEvent(new Event('input')); 
-            proxyNameInput.dispatchEvent(new Event('input')); // Formatea también el proxy
-            const studentName = studentNameInput.value.trim();
-            const proxyName = proxyNameInput.value.trim(); 
+            // Forzar formato final de nombres
+            formatName(studentNameInput);
+            if(proxyCheckbox.checked) formatName(proxyNameInput);
 
-            // 2. Verifica Clave Estudiante
-            const studentKey = studentKeyInput.value;
-            if (!/^\d{6}$/.test(studentKey)) {
-                alert('Error: La Clave del Estudiante debe contener exactamente 6 dígitos.');
+            // Validar Clave (6 dígitos)
+            if (!/^\d{6}$/.test(studentKeyInput.value)) {
+                event.preventDefault();
+                alert('Error: La Clave debe tener 6 dígitos.');
                 studentKeyInput.focus();
                 return; 
             }
 
-            // 3. Verifica Nombre Estudiante (Dueño ID)
-            const studentNameParts = studentName.split(' ').filter(part => part.length > 0); 
-            if (studentNameParts.length < 2) {
-                alert('Error: El Nombre del Estudiante (Dueño de ID) debe contener al menos un nombre y un apellido.');
-                studentNameInput.focus();
-                return; 
-            }
-            studentNameInput.value = studentNameParts.join(' '); 
-
-            // 4. Verifica Teléfono Estudiante (Dueño ID) - 10 dígitos
-            const studentPhone = studentPhoneInput.value;
-             if (!/^\d{10}$/.test(studentPhone)) {
-                alert('Error: El Número de Teléfono (Dueño de ID) debe contener exactamente 10 dígitos.');
+            // Validar Teléfono (10 dígitos)
+            if (!/^\d{10}$/.test(studentPhoneInput.value)) {
+                event.preventDefault();
+                alert('Error: El Teléfono debe tener 10 dígitos.');
                 studentPhoneInput.focus();
                 return;
             }
 
-            // 5. Verifica si es Proxy y valida campos del Solicitante
-            if (proxyCheckbox.checked) {
-                 // 5a. Valida Nombre Solicitante (al menos 2 palabras)
-                 const proxyNameParts = proxyName.split(' ').filter(part => part.length > 0);
-                 if (proxyNameParts.length < 2) {
-                     alert('Error: El Nombre del Solicitante debe contener al menos un nombre y un apellido.');
-                     proxyNameInput.focus();
-                     return;
-                 }
-                 proxyNameInput.value = proxyNameParts.join(' ');
-
-                 // 5b. Valida Teléfono Solicitante (10 dígitos)
-                 const proxyPhone = proxyPhoneInput.value;
-                 if (!/^\d{10}$/.test(proxyPhone)) {
-                    alert('Error: El Teléfono del Solicitante debe contener exactamente 10 dígitos.');
-                    proxyPhoneInput.focus();
-                    return;
-                }
-            }
-            
-            // 6. Verifica Artículo seleccionado
-            if (!loanItemSelect.value) { 
-                alert('Error: Debes seleccionar un Artículo a prestar.');
-                loanItemSelect.focus();
+            // Validar Proxy Phone
+            if (proxyCheckbox.checked && !/^\d{10}$/.test(proxyPhoneInput.value)) {
+                event.preventDefault();
+                alert('Error: El Teléfono del Solicitante debe tener 10 dígitos.');
+                proxyPhoneInput.focus();
                 return;
             }
             
-            // Si todo está bien...
-            console.log("Registrando préstamo (visualmente)...");
-            // Aquí iría la lógica real para enviar los datos al servidor
-
-            alert('Préstamo registrado exitosamente (simulación).');
-            registerLoanForm.reset(); 
-            // Reset manual del checkbox y ocultar sección proxy si estaba visible
-            proxyCheckbox.checked = false; 
-            proxyDetailsSection.classList.add('hidden');
-            proxyNameInput.required = false;
-            proxyPhoneInput.required = false;
-
-            updateAvailableItems(); 
+            // Validar que haya artículo seleccionado
+            if (!loanItemSelect.value) { 
+                event.preventDefault();
+                alert('Error: Debes seleccionar un Artículo.');
+                loanItemSelect.focus();
+                return;
+            }
         });
 
-        // --- Inicializa la lista al cargar la página ---
-        updateAvailableItems(); 
+        // --- INICIALIZACIÓN ---
+        updateInterface(); 
 
     } // Fin del if(registerLoanForm)
 
@@ -567,37 +553,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 returnComments.value = ''; // Clear comments
                 returnComments.focus(); // Focus comments box
             }
-        });
-
-        // --- Event: Click Confirm Return button ---
-        confirmReturnBtn.addEventListener('click', () => {
-            if (!selectedLoanItem) {
-                alert("Por favor, selecciona un préstamo de la lista primero.");
-                return;
-            }
-
-            const data = selectedLoanItem.dataset;
-            const comments = returnComments.value;
-            
-            console.log(`Devolviendo préstamo ID: ${data.loanId}, Comentarios: ${comments} (Visualmente)`);
-            // --- Here would be the actual backend call to process the return ---
-
-            // Show success banner
-            successMessageText.textContent = `Préstamo devuelto exitosamente: ${data.article} por ${data.student}`;
-            successBanner.classList.remove('hidden');
-
-            // Remove item from list (visually)
-            selectedLoanItem.remove();
-            selectedLoanItem = null; // Clear selection
-
-            // Reset view and update stats
-            resetDetailsView();
-            updateQuickStats();
-
-            // Hide banner after a few seconds
-            setTimeout(() => {
-                successBanner.classList.add('hidden');
-            }, 5000); // Hide after 5 seconds
         });
 
         // --- Event: Click Cancel button ---
@@ -733,34 +688,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-
-        // --- Event Listener para Confirmar Devolución (SIN CAMBIOS) ---
-        if (confirmReturnForm) {
-            confirmReturnForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                const loanId = document.getElementById('confirm-loan-id').value;
-                const comments = document.getElementById('modal-return-comments').value;
-
-                console.log(`Confirmando devolución para Préstamo ID: ${loanId}, Comentarios: ${comments} (Visualmente)`);
-                // --- Backend call ---
-
-                const itemToRemove = overdueListContainer.querySelector(`.overdue-loan-item[data-loan-id="${loanId}"]`);
-                if (itemToRemove) itemToRemove.remove();
-
-                closeModal(confirmReturnModal); 
-                updateOverdueStats(); 
-                
-                // Mostrar banner de éxito (opcional, necesitarías el banner en el HTML)
-                 // const successBanner = document.getElementById('return-success-banner'); // O un banner específico para esta página
-                 // const successMsg = document.getElementById('success-message-text');
-                 // if(successBanner && successMsg){
-                 //      const itemData = itemToRemove ? itemToRemove.dataset : {article: 'Artículo', student: 'Estudiante'}; // Fallback
-                 //      successMsg.textContent = `Préstamo de ${itemData.article} por ${itemData.student} marcado como devuelto.`;
-                 //      successBanner.classList.remove('hidden');
-                 //      setTimeout(() => successBanner.classList.add('hidden'), 5000);
-                 // }
-            });
-        }
 
         // --- Event Listeners para CERRAR Modales ---
         // Cerrar Modal Confirmar Devolución (X y Cancelar)
@@ -942,7 +869,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } // Fin del if(historyFilterForm)
 
     // ==========================================================
-    // LÓGICA PARA LA PÁGINA DE REPORTES (reports.html)
+    // LÓGICA PARA LA PÁGINA DE REPORTES (reports.php)
     // ==========================================================
     
     // Busca el formulario de configuración de reportes
@@ -956,60 +883,37 @@ document.addEventListener('DOMContentLoaded', function() {
         const reportWeekGroup = document.getElementById('report-week-group');
         const reportMonthGroup = document.getElementById('report-month-group');
         
-        // --- Selección de elementos de la vista previa ---
-        const reportPreviewCard = document.getElementById('report-preview-card');
-        const previewTitle = document.getElementById('preview-title');
-        const previewDesc = document.getElementById('preview-desc');
-        const reportCategory = document.getElementById('report-category');
+        // Seleccionamos los INPUTS reales (no los grupos div) para cambiar el required
+        const reportWeekInput = document.getElementById('report-week');
+        const reportMonthInput = document.getElementById('report-month');
 
         // --- Evento: Cambiar Tipo de Reporte (Semanal/Mensual) ---
-        // Muestra u oculta el input de semana o mes
         if (reportTypeSelect) {
             reportTypeSelect.addEventListener('change', () => {
                 if (reportTypeSelect.value === 'semanal') {
+                    // Mostrar Semana / Ocultar Mes
                     if (reportWeekGroup) reportWeekGroup.classList.remove('hidden');
                     if (reportMonthGroup) reportMonthGroup.classList.add('hidden');
+                    
+                    // CORRECCIÓN CRÍTICA: Gestionar el atributo 'required'
+                    // Si es semanal, la semana es obligatoria, el mes no.
+                    if (reportWeekInput) reportWeekInput.required = true;
+                    if (reportMonthInput) reportMonthInput.required = false;
+                    
                 } else {
+                    // Ocultar Semana / Mostrar Mes
                     if (reportWeekGroup) reportWeekGroup.classList.add('hidden');
                     if (reportMonthGroup) reportMonthGroup.classList.remove('hidden');
+                    
+                    // CORRECCIÓN CRÍTICA: Gestionar el atributo 'required'
+                    // Si es mensual, la semana NO es obligatoria, el mes sí.
+                    if (reportWeekInput) reportWeekInput.required = false;
+                    if (reportMonthInput) reportMonthInput.required = true;
                 }
             });
         }
 
-        // --- Evento: Enviar el formulario de configuración ---
-        reportConfigForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita que la página se recargue
-
-            // --- Simulación de generación de vista previa ---
-            
-            // 1. Obtener valores de los filtros
-            const tipoReporte = reportTypeSelect.options[reportTypeSelect.selectedIndex].text;
-            const categoria = reportCategory.options[reportCategory.selectedIndex].text;
-            let periodo = "";
-            
-            if (reportTypeSelect.value === 'semanal') {
-                const weekVal = document.getElementById('report-week').value;
-                periodo = weekVal ? `la semana de ${weekVal}` : "la semana seleccionada";
-            } else {
-                const monthVal = document.getElementById('report-month').value;
-                periodo = monthVal ? `el mes de ${monthVal}` : "el mes seleccionado";
-            }
-
-            // 2. Poblar la tarjeta de vista previa con los datos simulados
-            if(previewTitle) previewTitle.textContent = `Vista Previa: ${tipoReporte}`;
-            if(previewDesc) previewDesc.innerHTML = `Mostrando datos simulados para <strong>${tipoReporte}</strong> (${periodo}) de la categoría <strong>${categoria}</strong>.`;
-
-            // 3. Mostrar la tarjeta de vista previa
-            console.log("Generando vista previa (simulación)...");
-            if(reportPreviewCard) reportPreviewCard.classList.remove('hidden');
-            
-            // 4. Opcional: Scroll suave hacia la vista previa
-            if(reportPreviewCard) {
-                reportPreviewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-
-        // Inicializar el tipo de reporte al cargar (para ocultar el campo de mes)
+        // Inicializar el estado al cargar la página
         if(reportTypeSelect) reportTypeSelect.dispatchEvent(new Event('change'));
     }
 
@@ -1027,22 +931,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Evento: Clic en Reporte Rápido Semanal ---
     if (quickReportWeeklyBtn) {
         quickReportWeeklyBtn.addEventListener('click', () => {
-            // SIMULACIÓN: Muestra una alerta
-            alert("Generando Reporte Rápido Semanal (Simulación)...\n\nEn una aplicación real, esto iniciaría una descarga de PDF de la última semana completa.");
-            
-            // Futura lógica de backend (cuando tengas PHP):
-            // window.location.href = 'backend/generar-reporte-rapido.php?tipo=semanal';
+            window.open('../control/generar_reporte.php?tipo=semanal', '_blank');
         });
     }
 
     // --- Evento: Clic en Reporte Rápido Mensual ---
     if (quickReportMonthlyBtn) {
         quickReportMonthlyBtn.addEventListener('click', () => {
-            // SIMULACIÓN: Muestra una alerta
-            alert("Generando Reporte Rápido Mensual (Simulación)...\n\nEn una aplicación real, esto iniciaría una descarga de PDF del último mes completo.");
-            
-            // Futura lógica de backend (cuando tengas PHP):
-            // window.location.href = 'backend/generar-reporte-rapido.php?tipo=mensual';
+            window.open('../control/generar_reporte.php?tipo=mensual', '_blank');
         });
     }
 
@@ -1101,87 +997,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (event.target === editUserModal) {
                 closeModal(editUserModal);
             }
-        });
-
-        // --- Evento: Enviar formulario de AGREGAR Usuario ---
-        if (addUserForm) {
-            addUserForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                // Aquí iría la lógica de backend
-                console.log("Creando nuevo usuario (simulación)...");
-                
-                // Simulación visual: (Opcional, pero recomendado)
-                // 1. Obtener datos del form
-                const newName = document.getElementById('add-user-name').value;
-                const newEmail = document.getElementById('add-user-email').value;
-                const newRol = document.getElementById('add-user-rol').value;
-                const rolText = newRol === 'admin' ? 'Administrador' : 'Miembro';
-
-                // 2. Crear el nuevo elemento de la lista (simulando ID)
-                const newId = Math.floor(Math.random() * 1000) + 5; // ID aleatorio
-                const newUserItem = document.createElement('div');
-                newUserItem.classList.add('user-manage-item');
-                newUserItem.dataset.id = newId;
-                newUserItem.dataset.name = newName;
-                newUserItem.dataset.email = newEmail;
-                newUserItem.dataset.rol = newRol;
-                
-                newUserItem.innerHTML = `
-                    <div class="col-article">
-                        <span class="item-name">${newName}</span>
-                        <span class="item-id">ID: ${newId}</span>
-                    </div>
-                    <div class="col-desc">${newEmail}</div>
-                    <div class="col-cat">
-                        <span class="rol-badge ${newRol}">${rolText}</span>
-                    </div>
-                    <div class="col-status">
-                        <span class="status-badge available">Activo</span>
-                    </div>
-                    <div>Recién Creado</div>
-                    <div class="col-actions">
-                        <button class="action-btn small-btn edit-user-btn">Editar</button>
-                        <button class="action-btn small-btn red deactivate toggle-active-btn">Desactivar</button>
-                    </div>
-                `;
-                
-                // 3. Añadirlo a la lista
-                userListContainer.appendChild(newUserItem);
-
-                closeModal(addUserModal);
-            });
-        }
-
-        // --- Evento: Enviar formulario de EDITAR Usuario ---
-        if (editUserForm) {
-            editUserForm.addEventListener('submit', (event) => {
-                event.preventDefault();
-                
-                // 1. Obtener datos del form
-                const id = document.getElementById('edit-user-id').value;
-                const newName = document.getElementById('edit-user-name').value;
-                const newRol = document.getElementById('edit-user-rol').value;
-                const rolText = newRol === 'admin' ? 'Administrador' : 'Miembro';
-                
-                console.log(`Guardando cambios para ID ${id} (simulación)...`);
-
-                // 2. Buscar la fila del usuario en la lista
-                const userRow = userListContainer.querySelector(`.user-manage-item[data-id="${id}"]`);
-                if (userRow) {
-                    // 3. Actualizar datos en el dataset (para futuras ediciones)
-                    userRow.dataset.name = newName;
-                    userRow.dataset.rol = newRol;
-                    
-                    // 4. Actualizar visualmente la fila
-                    userRow.querySelector('.item-name').textContent = newName;
-                    const rolBadge = userRow.querySelector('.rol-badge');
-                    rolBadge.textContent = rolText;
-                    rolBadge.className = `rol-badge ${newRol}`; // Limpia clases y pone la nueva
-                }
-                
-                closeModal(editUserModal);
-            });
-        }
+        });       
 
         // --- Eventos para botones de la LISTA (Editar, Activar/Desactivar) ---
         userListContainer.addEventListener('click', (event) => {
@@ -1211,37 +1027,80 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Si el botón es para DESACTIVAR
                 if (toggleButton.classList.contains('deactivate')) {
                     if (confirm(`¿Estás seguro de que deseas desactivar a ${userName}?`)) {
-                        // Simulación de backend
-                        console.log(`Desactivando a ${userName}...`);
-                        
-                        // Cambiar badge de estado
-                        statusBadge.textContent = 'Inactivo';
-                        statusBadge.classList.remove('available');
-                        statusBadge.classList.add('unavailable');
-                        
-                        // Cambiar el botón
-                        toggleButton.textContent = 'Activar';
-                        toggleButton.classList.remove('red', 'deactivate');
-                        toggleButton.classList.add('green', 'activate');
+                        const userId = userRow.dataset.id;
+                        window.location.href = '../control/cambiar_estado_usuario.php?id=' + userId + '&estado=inactivo';
                     }
                 }
                 // Si el botón es para ACTIVAR
                 else if (toggleButton.classList.contains('activate')) {
-                    // Simulación de backend
-                    console.log(`Activando a ${userName}...`);
-
-                    // Cambiar badge de estado
-                    statusBadge.textContent = 'Activo';
-                    statusBadge.classList.remove('unavailable');
-                    statusBadge.classList.add('available');
-                    
-                    // Cambiar el botón
-                    toggleButton.textContent = 'Desactivar';
-                    toggleButton.classList.remove('green', 'activate');
-                    toggleButton.classList.add('red', 'deactivate');
+                    const userId = userRow.dataset.id;
+                    window.location.href = '../control/cambiar_estado_usuario.php?id=' + userId + '&estado=activo';
                 }
             }
         });
 
     } // Fin del if(userListContainer)
+
+    // ==========================================================
+    // NUEVA LÓGICA PARA MODAL DE DETALLES EN HISTORIAL
+    // ==========================================================
+    
+    const historyListContainer = document.getElementById('history-loans-list');
+    const historyModal = document.getElementById('history-details-modal');
+    const closeHistoryBtn = document.getElementById('close-history-modal-btn');
+    const okHistoryBtn = document.getElementById('ok-history-modal-btn');
+
+    if (historyListContainer && historyModal) {
+        
+        // Evento Delegado: Clic en "Ver Detalles"
+        historyListContainer.addEventListener('click', (event) => {
+            const btn = event.target.closest('.view-history-details-btn');
+            if (!btn) return;
+
+            const item = btn.closest('.history-loan-item');
+            const data = item.dataset;
+
+            // Llenar datos
+            document.getElementById('hist-id').textContent = data.loanId;
+            document.getElementById('hist-article').textContent = data.article;
+            document.getElementById('hist-category').textContent = data.category;
+            document.getElementById('hist-status').textContent = data.status;
+            document.getElementById('hist-registered-by').textContent = data.registeredBy;
+            
+            document.getElementById('hist-loan-date').textContent = data.loanDate;
+            document.getElementById('hist-due-date').textContent = data.dueDate;
+            document.getElementById('hist-return-date').textContent = data.returnDate;
+
+            document.getElementById('hist-student').textContent = data.student;
+            document.getElementById('hist-key').textContent = data.key;
+            document.getElementById('hist-phone').textContent = data.phone;
+            document.getElementById('hist-id-type').textContent = data.idType;
+
+            // Proxy
+            const proxySec = document.getElementById('hist-proxy-section');
+            if (data.proxyName) {
+                document.getElementById('hist-proxy-name').textContent = data.proxyName;
+                document.getElementById('hist-proxy-phone').textContent = data.proxyPhone;
+                proxySec.classList.remove('hidden');
+            } else {
+                proxySec.classList.add('hidden');
+            }
+
+            // Comentarios
+            document.getElementById('hist-com-loan').textContent = data.commentsLoan || 'Ninguno';
+            document.getElementById('hist-com-return').textContent = data.commentsReturn || 'Ninguno';
+
+            // Abrir Modal (usando la función global openModal si existe, o manual)
+            historyModal.classList.remove('hidden');
+        });
+
+        // Cerrar Modal
+        const closeHModal = () => historyModal.classList.add('hidden');
+        if(closeHistoryBtn) closeHistoryBtn.addEventListener('click', closeHModal);
+        if(okHistoryBtn) okHistoryBtn.addEventListener('click', closeHModal);
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === historyModal) closeHModal();
+        });
+    }
 });

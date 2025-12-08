@@ -380,6 +380,10 @@ body{
 }
 .recent-status.active {background-color: #e3f2fd; color: #155dfc;}
 .recent-status.overdue {background-color: #fde6e6; color: #d9534f;}
+.stat-icon.blue {color: #155dfc; background-color: #e3f2fd; border-radius: 50%; padding: 10px;}
+.stat-icon.available {color: #28a745; background-color: #d4edda; border-radius: 50%; padding: 10px;}
+.stat-icon.urgent {color: #d9534f; background-color: #f8d7da; border-radius: 50%; padding: 10px;}
+.stat-card {align-items: center;}
 
 
 
@@ -444,6 +448,26 @@ body{
   color: #78a2ca; font-weight: bold; font-size: 12pt;
 }
 .back-to-dash-btn:hover {color: #1c398e;}
+.status-badge.baja { background-color: #6c757d; color: #fff; }
+.inv-manage-item.item-baja { background-color: #f8f9fa; color: #999; }
+.inv-manage-item.item-baja .item-name { color: #777; text-decoration: line-through; }
+.reactivate-btn { background-color: #28a745; color: #fff; }
+.reactivate-btn:hover { background-color: #1e7e34; }
+.stat-icon.total-items {
+    color: #1c398e;
+    background-color: #e8eaf6; /* Indigo muy suave */
+    border-radius: 50%; padding: 10px;
+}
+.stat-icon.cat-consejeria {
+    color: #bfa523; /* Dorado oscuro para que se lea bien sobre fondo claro */
+    background-color: #fffde7; /* Amarillo muy pálido */
+    border-radius: 50%; padding: 10px;
+}
+.stat-icon.cat-fup {
+    color: #17a2b8; /* Cian fuerte */
+    background-color: #e0f7fa; /* Cian muy pálido */
+    border-radius: 50%; padding: 10px;
+}
 
 
 /*
@@ -1781,4 +1805,198 @@ input[type="tel"]:required:invalid {
 }
 .user-manage-item .deactivate:hover {
     background-color: #c9302c;
+}
+.stat-icon.users { 
+    color: #6f42c1; /* Morado */
+    background-color: #f3e5f5; 
+    border-radius: 50%; padding: 10px;
+}
+.stat-icon.admins { 
+    color: #fd7e14; /* Naranja fuerte */
+    background-color: #fff3cd; 
+    border-radius: 50%; padding: 10px;
+}
+.stat-icon.members { 
+    color: #0dcaf0; /* Cian oscuro */
+    background-color: #d1ecf1; 
+    border-radius: 50%; padding: 10px;
+}
+.user-manage-header,
+.user-manage-item {
+    display: grid;
+    grid-template-columns: 1.5fr 2.5fr 1fr 1fr 1.2fr !important; 
+    gap: 20px; /* Más espacio entre columnas */
+    padding: 16px 24px; /* Más aire vertical y horizontal */
+}
+.user-manage-header div, 
+.user-manage-item div {
+    display: flex;
+    align-items: center;
+}
+.user-manage-header div:nth-child(3), .user-manage-item .col-cat,
+.user-manage-header div:nth-child(4), .user-manage-item .col-status,
+.user-manage-header div:nth-child(5), .user-manage-item .col-actions {
+    justify-content: center;
+}
+.rol-badge {
+    min-width: 100px; /* Ancho fijo para que se vean uniformes */
+    padding: 6px 0;
+    text-transform: uppercase;
+    font-size: 9pt;
+    letter-spacing: 0.5px;
+}
+.rol-badge.admin {
+    background-color: #6f42c1; /* Morado para distinguir de "vencido" */
+    color: #fff;
+}
+.rol-badge.member {
+    background-color: #6c757d; /* Gris azulado profesional */
+    color: #fff;
+}
+.col-desc {
+    color: #555;
+    font-weight: 500;
+}
+.item-id {
+    color: #999;
+    font-size: 0.9em;
+    margin-left: 8px;
+}
+
+
+/* =========================================
+   CORRECCIONES VISUALES (HISTORIAL Y MODALES)
+   ========================================= */
+
+/* --- 1. ARREGLO DEL MODAL (SCROLL) --- */
+.modal-card {
+    max-height: 85vh; /* Altura máxima del 85% de la ventana */
+    display: flex;
+    flex-direction: column; /* Organiza título, contenido y botones verticalmente */
+    padding: 24px; /* Un poco menos de padding para ganar espacio */
+}
+
+/* El contenedor del contenido interno del modal */
+.loan-details-modal {
+    overflow-y: auto; /* Activa el scroll vertical si el contenido es largo */
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    padding-right: 10px; /* Espacio para que la barra de scroll no tape texto */
+    margin-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- 2. ARREGLO DE LA LISTA DE HISTORIAL (BOTÓN A LA DERECHA) --- */
+.history-loan-item {
+    display: grid;
+    /* Antes: 3fr 1fr -> Ahora: 3fr (Info) 1.5fr (Fechas) 1fr (Botón) */
+    grid-template-columns: 3fr 1.5fr 1fr; 
+    gap: 16px;
+    align-items: center; /* Centra verticalmente todo */
+}
+
+/* Ajuste para las fechas */
+.history-item-dates {
+    align-items: flex-start;
+    padding-top: 0; /* Quitamos padding extra */
+}
+
+/* Nueva clase para el contenedor del botón */
+.history-item-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinea a la derecha */
+}
+
+/* El botón en sí */
+.view-history-details-btn {
+    margin-top: 0 !important; /* Quitamos el margen que tenía antes */
+    width: auto;
+    padding: 8px 16px;
+}
+
+
+
+
+
+.office-config-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+.office-config-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.office-header {
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f1f7fc;
+    margin-bottom: 20px;
+}
+.office-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.section-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.service-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.service-row:last-child { border-bottom: none; }
+
+.service-info { 
+    display: flex; align-items: center; gap: 12px; 
+    color: #444; font-weight: 500; font-size: 1.05rem;
+}
+.service-icon-wrapper {
+    background-color: #f1f7fc;
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.service-info .material-icons { font-size: 20px; color: #1c398e; }
+
+.config-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+.config-select:hover { border-color: #1c398e; }
+
+.config-select.status-unavailable {
+    color: #d9534f;
+    border-color: #f5c6cb;
+    background-color: #fff5f5;
+    font-weight: bold;
+}
+.config-select.status-available {
+    color: #28a745;
+    border-color: #c3e6cb;
+    background-color: #f0fff4;
+    font-weight: bold;
 }
